@@ -1,0 +1,91 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerInteraction : MonoBehaviour
+{
+    public GameObject objetoTomar;
+
+    [SerializeField] private InputActionReference interactAction;
+    [SerializeField] private InputActionReference arrojarAction;
+
+    [SerializeField] private float fuerzaLanzamiento = 15f; // Ajusta este valor según la masa del objeto
+
+    private void OnEnable()
+    {
+        if (interactAction != null) interactAction.action.Enable();
+        if (arrojarAction != null) arrojarAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (interactAction != null) interactAction.action.Disable();
+        if (arrojarAction != null) arrojarAction.action.Disable();
+    }
+
+    void Update()
+    {
+        // --- AGARRAR OBJETO ---
+        if (interactAction != null && interactAction.action.WasPressedThisFrame())
+        {
+            if (objetoTomar != null)
+            {
+                objetoTomar.transform.SetParent(transform);
+                objetoTomar.transform.localPosition = Vector3.zero;
+
+                if (objetoTomar.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+                {
+                    rb.bodyType = RigidbodyType2D.Kinematic;
+                    rb.linearVelocity = Vector2.zero;
+                }
+            }
+        }
+
+        // --- ARROJAR OBJETO HACIA EL MOUSE ---
+        if (arrojarAction != null && arrojarAction.action.WasPressedThisFrame())
+        {
+            // Verificamos que tengamos un objeto tomado y que sea nuestro hijo
+            if (objetoTomar != null && objetoTomar.transform.parent == transform)
+            {
+                // 1. Obtener la posición del mouse en la pantalla con el nuevo Input System
+                Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
+
+                // 2. Convertir la posición de la pantalla a coordenadas del mundo 2D
+                Vector3 mouseWorldPosition3D = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+                Vector2 mouseWorldPosition = new Vector2(mouseWorldPosition3D.x, mouseWorldPosition3D.y);
+
+                // 3. Calcular la dirección normalizada desde el jugador hacia el mouse
+                Vector2 direccionLanzamiento = (mouseWorldPosition - (Vector2)transform.position).normalized;
+
+                // 4. Desvincular el objeto del jugador
+                objetoTomar.transform.SetParent(null);
+
+                // 5. Aplicar la fuerza
+                if (objetoTomar.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+                {
+                    rb.bodyType = RigidbodyType2D.Dynamic;
+                    rb.gravityScale = 0;
+                    rb.AddForce(direccionLanzamiento * fuerzaLanzamiento, ForceMode2D.Impulse);
+                }
+
+                // 6. Soltar la referencia
+                objetoTomar = null;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (objetoTomar == null)
+        {
+            objetoTomar = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (objetoTomar == other.gameObject && objetoTomar.transform.parent != transform)
+        {
+            objetoTomar = null;
+        }
+    }
+}

@@ -6,6 +6,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movimiento")]
     [SerializeField] private float moveSpeed = 6f;
 
+    [Header("Variables de Dirección (Int)")]
+    public int movimientoX;
+    public int movimientoY;
+
     [Header("Opciones de Orientación")]
     [Tooltip("Marca TRUE si quieres que el sprite se voltee horizontalmente (Flip X). FALSE si prefieres rotar la escala.")]
     [SerializeField] private bool useSpriteRendererFlip = true;
@@ -13,49 +17,61 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movementInput;
     private SpriteRenderer spriteRenderer;
+    private Animator anim;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
 
-        // Desactivamos la gravedad para que el personaje no se caiga al moverse en Y
+        // Desactivamos la gravedad para movimiento libre en 2D
         rb.gravityScale = 0f;
     }
 
     private void Update()
     {
-        // 1. Obtener entradas en los ejes X e Y (Teclas W/A/S/D, Flechas o Stick analógico)
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
+        // 1. Obtener entradas enteras (-1, 0, 1) para cada eje
+        movimientoX = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
+        movimientoY = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
 
-        // Normalizamos el vector para evitar que el jugador se mueva más rápido en diagonal
-        movementInput = new Vector2(inputX, inputY).normalized;
+        // 2. Crear el vector de movimiento y normalizarlo
+        movementInput = new Vector2(movimientoX, movimientoY).normalized;
 
-        // 2. Controlar la orientación del Sprite (Mirar izquierda / derecha)
-        HandleSpriteFacing(inputX);
+        // 3. ACTUALIZAR EL ANIMATOR
+        UpdateAnimator();
+
+        // 4. Controlar la orientación del Sprite (Mirar izquierda / derecha)
+        HandleSpriteFacing(movimientoX);
     }
 
     private void FixedUpdate()
     {
-        // Aplicamos el movimiento directamente en el Rigidbody2D mediante física
+        // Aplicamos el movimiento en el Rigidbody2D
         rb.linearVelocity = movementInput * moveSpeed;
     }
 
-    private void HandleSpriteFacing(float inputX)
+    private void UpdateAnimator()
     {
-        if (inputX == 0f) return;
+        if (anim == null) return;
+
+        // Enviamos los valores enteros al Animator
+        anim.SetInteger("MovimientoX", movimientoX);
+        anim.SetInteger("MovimientoY", movimientoY);
+    }
+
+    private void HandleSpriteFacing(int inputX)
+    {
+        if (inputX == 0) return;
 
         if (useSpriteRendererFlip && spriteRenderer != null)
         {
-            // Método 1: Flip con el SpriteRenderer
-            spriteRenderer.flipX = inputX < 0f;
+            spriteRenderer.flipX = inputX < 0;
         }
         else
         {
-            // Método 2: Invirtiendo la escala en X (útil si el personaje tiene objetos hijos)
             Vector3 scale = transform.localScale;
-            scale.x = Mathf.Abs(scale.x) * (inputX < 0f ? -1f : 1f);
+            scale.x = Mathf.Abs(scale.x) * (inputX < 0 ? -1f : 1f);
             transform.localScale = scale;
         }
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Donacion
+public class Donacion : MonoBehaviour
 {
     public string nombre;
     public DonacionRasgo[] rasgos;

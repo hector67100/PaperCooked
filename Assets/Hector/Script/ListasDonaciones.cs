@@ -10,22 +10,63 @@ public class ListasDonaciones
     public int cantidadMaxima;
     public bool completado;
 
-    public void addDonacion(Donacion donacion)
+    public void addDonacion(GameObject donacion)
     {
         if (cantidadTotal >= cantidadMaxima)
         {
             return;
         }
 
-        donaciones.Add(donacion);
+        Donacion donacionComponent = donacion.GetComponent<Donacion>();
+
+        donaciones.Add(donacionComponent);
+        donacion.SetActive(false);
         cantidadTotal++;
+        ListaCantidadDonacionesRevisar();
     }
 
-    public void removeDonacion(Donacion donacion)
+    public void removeDonacion(GameObject donacion)
     {
-        donaciones.Remove(donacion);
+        Donacion donacionComponent = donacion.GetComponent<Donacion>();
+        donaciones.Remove(donacionComponent);
         cantidadTotal--;
     }
+
+    public void ListaCantidadDonacionesRevisar()
+    {
+        bool completado = true;
+        foreach (ListaCantidadDonaciones lista in listaCantidadDonaciones)
+        {
+            int cantidad = 0;
+            foreach (Donacion donacion in donaciones)
+            {
+                if (donacion.tipo == lista.donacionTipo)
+                {
+                    cantidad++;
+                }
+            }
+            
+            if(cantidad < lista.cantidad)
+            {
+                completado = false;
+                break;
+            }
+        }
+
+        this.completado = completado;
+    }
+
+    public void ListaCantidadDonacionesRemover(TipoDonacion tipo)
+    {
+        ListaCantidadDonaciones lista = listaCantidadDonaciones.Find(x => x.donacionTipo == tipo);
+        if (lista != null)
+        {
+            lista.cantidad--;
+        }
+
+    }
+
+
 }
 [System.Serializable]
 public class ListaCantidadDonaciones

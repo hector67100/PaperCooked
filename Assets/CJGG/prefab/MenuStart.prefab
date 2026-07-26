@@ -482,6 +482,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2820653973028189368}
+        m_TargetAssemblyTypeName: Gestor_Intro_menu, Assembly-CSharp
+        m_MethodName: ElegirPlayers
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &660529784063875313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,6 +2288,7 @@ GameObject:
   - component: {fileID: 3496327757955006957}
   - component: {fileID: 4781419328075863085}
   - component: {fileID: 2820653973028189368}
+  - component: {fileID: 6392439692159453785}
   m_Layer: 5
   m_Name: MenuStart
   m_TagString: Untagged
@@ -2378,6 +2391,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd95edb1a3837204980ea7c7df213919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  Transicion: {fileID: 0}
+--- !u!95 &6392439692159453785
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4848011977234300714}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4852532174548187284
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,7 +2875,6 @@ GameObject:
   - component: {fileID: 5340427863032344942}
   - component: {fileID: 7031886659159206807}
   - component: {fileID: 5897460354658961639}
-  - component: {fileID: 2241998511983628067}
   m_Layer: 5
   m_Name: El diario de Beka
   m_TagString: Untagged
@@ -2974,22 +3009,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2241998511983628067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5470825525002331408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e92346ee12456a4997ecbc3fa06d0b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gestionar_panel_Music
-  icono_Apagada: {fileID: 0}
-  icono_Encendido: {fileID: 0}
-  Evaluar: SFX
-  OnEnablethis: 0
 --- !u!1 &5503732484799918001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3675,6 +3694,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2820653973028189368}
+        m_TargetAssemblyTypeName: Gestor_Intro_menu, Assembly-CSharp
+        m_MethodName: ElegirPlayers
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4678,7 +4709,6 @@ GameObject:
   - component: {fileID: 2936422266753407156}
   - component: {fileID: 531173320298589912}
   - component: {fileID: 2650008582138622743}
-  - component: {fileID: 2441485420017034695}
   m_Layer: 5
   m_Name: Rafael Navarro
   m_TagString: Untagged
@@ -4813,22 +4843,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2441485420017034695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8481907738811540409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e92346ee12456a4997ecbc3fa06d0b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gestionar_panel_Music
-  icono_Apagada: {fileID: 0}
-  icono_Encendido: {fileID: 0}
-  Evaluar: SFX
-  OnEnablethis: 0
 --- !u!1 &8845709512347735175
 GameObject:
   m_ObjectHideFlags: 0
@@ -4941,7 +4955,6 @@ GameObject:
   - component: {fileID: 9104236077743860714}
   - component: {fileID: 3730518614360473824}
   - component: {fileID: 2297004524155591132}
-  - component: {fileID: 5559719754261440941}
   m_Layer: 5
   m_Name: Carlos Gonzalez
   m_TagString: Untagged
@@ -5076,22 +5089,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5559719754261440941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8869654095713242854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e92346ee12456a4997ecbc3fa06d0b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gestionar_panel_Music
-  icono_Apagada: {fileID: 0}
-  icono_Encendido: {fileID: 0}
-  Evaluar: SFX
-  OnEnablethis: 0
 --- !u!1 &8958524392221912456
 GameObject:
   m_ObjectHideFlags: 0

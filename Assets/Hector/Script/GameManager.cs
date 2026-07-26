@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public ListasDonaciones[] listasDonaciones;
     public ListasDonaciones listasDonacionActiva;
-    public GameObject donacionesTest;
+    public GameObject mesa;
     void Start()
     {
         if (instance == null)
@@ -17,19 +17,21 @@ public class GameManager : MonoBehaviour
          listasDonacionActiva = listasDonaciones[0];
     }
 
-    public void Test()
-    {
-        listasDonacionActiva.addDonacion(donacionesTest);
-    }
-
     public void TestCambiar()
     {
         listasDonacionActiva = listasDonaciones[1];
     }
 
-    // Update is called once per frame
-    void Update()
+    public void aparecerDonaciones(GameObject[] lista)
     {
-        
+        foreach(GameObject donacion in lista)
+        {
+            GameObject objeto = Instantiate(donacion, new Vector3(0f, 0, 0), Quaternion.identity);
+            objeto.transform.SetParent(mesa.transform);
+        }
+
+        mesa.GetComponent<ResetChildrenPosition>().OrganizarHijos();
     }
+
+    
 }

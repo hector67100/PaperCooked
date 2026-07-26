@@ -1,9 +1,11 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
     public GameObject objetoTomar;
+    public CajaDonacion caja;
 
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private InputActionReference arrojarAction;
@@ -37,6 +39,15 @@ public class PlayerInteraction : MonoBehaviour
                     rb.bodyType = RigidbodyType2D.Kinematic;
                     rb.linearVelocity = Vector2.zero;
                 }
+            }
+
+            if(caja != null)
+            {
+                if(!caja.open)
+                {
+                    caja.AbrirCaja();
+                }
+                
             }
         }
 
@@ -75,17 +86,39 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (objetoTomar == null)
+        switch(other.gameObject.tag)
         {
-            objetoTomar = other.gameObject;
+            case "Donacion":
+                if (objetoTomar == null)
+                {
+                    objetoTomar = other.gameObject;
+                }
+            break;
+            case "Caja":
+                if (caja == null)
+                {
+                    caja = other.gameObject.GetComponent<CajaDonacion>();
+                }
+            break;
+
         }
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (objetoTomar == other.gameObject && objetoTomar.transform.parent != transform)
+        switch(other.gameObject.tag)
         {
-            objetoTomar = null;
+            case "Donacion":
+                if (objetoTomar == other.gameObject && objetoTomar.transform.parent != transform)
+                {
+                    objetoTomar = null;
+                }
+            break;
+            case "Caja":
+                caja = null;
+            break;
+
         }
     }
 }

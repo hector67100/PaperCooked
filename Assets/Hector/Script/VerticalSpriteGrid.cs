@@ -1,56 +1,129 @@
 using UnityEngine;
 
-[ExecuteAlways] // Funciona también en el editor sin darle a Play
+[ExecuteAlways]
 public class VerticalSpriteGrid : MonoBehaviour
 {
-    [Header("Configuración de la Columna")]
-    [Tooltip("Espacio extra opcional entre cada sprite (puede ser 0 o negativo)")]
-    public float padding = 0.2f;
+    [Header("Grid Settings")]
+    [SerializeField] private int width = 10;
+    [SerializeField] private int height = 10;
+    [SerializeField] private float cellSize = 1f;
 
-    void Start()
+    [Header("Orientation")]
+    [Tooltip("Define si el grid se genera en el plano XY (2D/Side-scroll) o XZ (Top-down/3D)")]
+    [SerializeField] private bool useXZPlane = false;
+
+    [Header("Debug / Visuals")]
+    [SerializeField] private bool showGizmos = true;
+    [SerializeField] private Color gridColor = Color.cyan;
+
+    private int[,] gridArray;
+
+    private void Awake()
     {
-        OrganizeVertical();
+        gridArray = new int[width, height];
     }
 
-    [ContextMenu("Organizar Sprites")]
-    public void OrganizeVertical()
+    /// <summary>
+    /// Obtiene la posición en el mundo real de la celda (x, y) respetando la posición, 
+    /// rotación y escala del GameObject local.
+    /// </summary>
+    public Vector3 GetWorldPosition(int x, int y)
     {
-        int childCount = transform.childCount;
-        if (childCount == 0) return;
+        Vector3 localPos = useXZPlane 
+            ? new Vector3(x * cellSize, 0f, y * cellSize) 
+            : new Vector3(x * cellSize, y * cellSize, 0f);
 
-        float currentY = 0f;
+        // Convierte la posición local a posición global considerando el Transform actual
+        return transform.TransformPoint(localPos);
+    }
 
-        for (int i = 0; i < childCount; i++)
+    /// <summary>
+    /// Convierte una posición en el mundo a coordenadas (x, y) de la matriz del grid.
+    /// </summary>
+    public void GetGridPosition(Vector3 worldPosition, out int x, out int y)
+    {
+        // Convierte la posición del mundo a espacio local de este GameObject
+        Vector3 localPos = transform.InverseTransformPoint(worldPosition);
+
+        if (useXZPlane)
         {
-            Transform child = transform.GetChild(i);
-            SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
-
-            if (sr == null)
-            {
-                Debug.LogWarning($"El hijo {child.name} no tiene SpriteRenderer.");
-                continue;
-            }
-
-            // Obtenemos el alto total del sprite en unidades de mundo
-            float spriteHeight = sr.bounds.size.y;
-            float halfHeight = spriteHeight / 2f;
-
-            // Para que la orilla SUPERIOR del sprite coincida con 'currentY',
-            // bajamos su centro una distancia igual a la mitad de su alto.
-            float targetY = currentY - halfHeight;
-
-            // Asignamos la posición manteniendo X y Z locales intactos
-            child.localPosition = new Vector3(0f, targetY, child.localPosition.z);
-
-            // Preparamos el punto de inicio para el SIGUIENTE sprite
-            // (Avanzamos el alto completo del sprite actual + la separación/padding)
-            currentY -= (spriteHeight + padding);
+            x = Mathf.FloorToInt(localPos.x / cellSize);
+            y = Mathf.FloorToInt(localPos.z / cellSize);
+        }
+        else
+        {
+            x = Mathf.FloorToInt(localPos.x / cellSize);
+            y = Mathf.FloorToInt(localPos.y / cellSize);
         }
     }
 
-    // Se ejecuta automáticamente en el Editor cuando cambias valores en el Inspector
-    private void OnValidate()
+    /// <summary>
+    /// Ajusta cualquier punto del mundo al centro de la celda más cercana en el grid.
+    /// </summary>
+    public Vector3 SnapToGrid(Vector3 worldPosition)
     {
-        OrganizeVertical();
+        GetGridPosition(worldPosition, out int x, out int y);
+
+        // Si la celda está dentro del rango del grid, devolvemos su centro
+        if (IsValidCell(x, y))
+        {
+            Vector3 cellOrigin = GetWorldPosition(x, y);
+            Vector3 offset = useXZPlane 
+                ? transform.TransformDirection(new Vector3(cellSize / 2f, 0f, cellSize / 2f)) 
+                : transform.TransformDirection(new Vector3(cellSize / 2f, cellSize / 2f, 0f));
+
+            return cellOrigin + offset;
+        }
+
+        return worldPosition; // Retorna la original si está fuera del grid
+    }
+
+    public bool IsValidCell(int x, int y)
+    {
+        return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!showGizmos) return;
+
+        Gizmos.color = gridColor;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Vector3 current = GetWorldPosition(x, y);
+
+                if (useXZPlane)
+                {
+                    Vector3 nextX = GetWorldPosition(x + 1, y);
+                    Vector3 nextZ = GetWorldPosition(x, y + 1);
+
+                    Gizmos.DrawLine(current, nextX);
+                    Gizmos.DrawLine(current, nextZ);
+                }
+                else
+                {
+                    Vector3 nextX = GetWorldPosition(x + 1, y);
+                    Vector3 nextY = GetWorldPosition(x, y + 1);
+
+                    Gizmos.DrawLine(current, nextX);
+                    Gizmos.DrawLine(current, nextY);
+                }
+            }
+        }
+
+        // Líneas para cerrar los bordes del grid
+        if (useXZPlane)
+        {
+            Gizmos.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height));
+            Gizmos.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height));
+        }
+        else
+        {
+            Gizmos.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height));
+            Gizmos.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height));
+        }
     }
 }

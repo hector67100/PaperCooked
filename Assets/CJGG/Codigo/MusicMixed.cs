@@ -20,7 +20,13 @@ public class MusicMixed : MonoBehaviour
     void Start()
     {
         index = this;
-       // Titulos_melodias.text= PlayList_Select( PlayerPrefs.GetInt("Melodia",0));
+        // Titulos_melodias.text= PlayList_Select( PlayerPrefs.GetInt("Melodia",0));
+        StablecerVolumen();
+        DontDestroyOnLoad(gameObject);
+
+    }
+    public void StablecerVolumen()
+    {
         if (PlayerPrefs.GetInt("Musica", 1) > 0)
         {
             OnOffMusica(true);
@@ -37,9 +43,8 @@ public class MusicMixed : MonoBehaviour
         {
             OnOffSFX(false);
         }
-        DontDestroyOnLoad(gameObject);
-
     }
+    
     public void Premio()
     {
         premio_sonido.Play();
@@ -106,6 +111,11 @@ public class MusicMixed : MonoBehaviour
         PlayList[mB].volume = 0f;
         
     }
+    public void NuevaMelodia(int a)
+    {
+        mB = mA;
+        mA = a;
+    }
     public void TocarSeleccion()
     {
         
@@ -152,9 +162,19 @@ public class MusicMixed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
-   
         if (!PlayList[mA].isPlaying)
+        {
+            PlayList[mA].Play();
+            PlayList[mA].time = 0;
+            PlayList[mA].volume = volumen_melodia;
+        }
+        if (PlayList[mB].isPlaying)
+        {
+            PlayList[mB].Stop();
+        }
+        return;
+
+            if (!PlayList[mA].isPlaying)
         {
             PlayList[mA].Play();
             PlayList[mA].time = 0;

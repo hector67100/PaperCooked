@@ -10,6 +10,6 @@ public class CajaDonacion : MonoBehaviour
     public void AbrirCaja()
     {
         GameManager.instance.aparecerDonaciones(donacionesCaja);
-        open = false;
+        open = true;
     }
 }

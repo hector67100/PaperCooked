@@ -6,6 +6,8 @@ public class PlayerInteraction : MonoBehaviour
 {
     public GameObject objetoTomar;
     public CajaDonacion caja;
+    public bool puedeDonar = false;
+    public bool eliminar = false;
 
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private InputActionReference arrojarAction;
@@ -48,6 +50,18 @@ public class PlayerInteraction : MonoBehaviour
                     caja.AbrirCaja();
                 }
                 
+            }
+
+            if(puedeDonar && objetoTomar != null)
+            {
+                GameManager.instance.AddDonacion(objetoTomar);
+                objetoTomar = null;
+            }
+
+            if(eliminar && objetoTomar != null)
+            {
+                Destroy(objetoTomar);
+                objetoTomar = null;
             }
         }
 
@@ -100,6 +114,12 @@ public class PlayerInteraction : MonoBehaviour
                     caja = other.gameObject.GetComponent<CajaDonacion>();
                 }
             break;
+            case "Donar":
+                puedeDonar = true;
+            break;
+            case "Basura":
+                eliminar = true;
+            break;
 
         }
 
@@ -117,6 +137,12 @@ public class PlayerInteraction : MonoBehaviour
             break;
             case "Caja":
                 caja = null;
+            break;
+            case "Donar":
+                puedeDonar = false;
+            break;
+            case "Basura":
+                eliminar = false;
             break;
 
         }

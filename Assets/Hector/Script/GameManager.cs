@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public ListasDonaciones[] listasDonaciones;
     public ListasDonaciones listasDonacionActiva;
     public GameObject mesa;
+    public int donacionesHechas = 0;
     void Start()
     {
         if (instance == null)
@@ -14,12 +15,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-         listasDonacionActiva = listasDonaciones[0];
-    }
-
-    public void TestCambiar()
-    {
-        listasDonacionActiva = listasDonaciones[1];
+        listasDonacionActiva = listasDonaciones[0];
     }
 
     public void aparecerDonaciones(GameObject[] lista)
@@ -31,6 +27,21 @@ public class GameManager : MonoBehaviour
         }
 
         mesa.GetComponent<ResetChildrenPosition>().OrganizarHijos();
+    }
+
+    public void CambiarDonacion()
+    {
+        donacionesHechas++;
+
+        if(donacionesHechas < listasDonaciones.Length)
+        {
+            listasDonacionActiva = listasDonaciones[donacionesHechas];
+        }   
+    }
+
+    public void AddDonacion(GameObject objeto)
+    {
+        listasDonacionActiva.addDonacion(objeto);
     }
 
     

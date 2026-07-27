@@ -21,6 +21,7 @@ public class ListasDonaciones
 
         donaciones.Add(donacionComponent);
         donacion.SetActive(false);
+        donacion.transform.SetParent(null);
         cantidadTotal++;
         ListaCantidadDonacionesRevisar();
     }
@@ -54,6 +55,16 @@ public class ListasDonaciones
         }
 
         this.completado = completado;
+
+        if(cantidadTotal == cantidadMaxima)
+        {
+            this.completado = true;
+        }
+
+        if(this.completado)
+        {
+            GameManager.instance.CambiarDonacion();
+        }
     }
 
     public void ListaCantidadDonacionesRemover(TipoDonacion tipo)

@@ -19,7 +19,7 @@ public class CajaDonacion : MonoBehaviour
         Caja_img.sprite = Abierto;
         Interactuable.SetActive(false);
         aaaaa.OrganizarHijos();
-        GameManager.instance.aparecerDonaciones(donacionesCaja);
+       /// GameManager.instance.aparecerDonaciones(donacionesCaja);
    
     }
     public bool Cronometro(out float T, float tempo, float reset)

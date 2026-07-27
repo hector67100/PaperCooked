@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     public CajaDonacion caja;
     public bool puedeDonar = false;
     public bool eliminar = false;
+    public GameObject Posicion_donacion;
 
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private InputActionReference arrojarAction;
@@ -33,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (objetoTomar != null)
             {
-                objetoTomar.transform.SetParent(transform);
+                objetoTomar.transform.SetParent(Posicion_donacion.transform);
                 objetoTomar.transform.localPosition = Vector3.zero;
 
                 if (objetoTomar.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
@@ -47,7 +48,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if(!caja.open)
                 {
-                    caja.AbrirCaja();
+                   caja.AbrirCaja();
                 }
                 
             }

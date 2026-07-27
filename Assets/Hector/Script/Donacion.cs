@@ -5,15 +5,18 @@ using System.Collections.Generic;
 public class Donacion : MonoBehaviour
 {
     public string nombre;
-    public DonacionRasgo[] rasgos;
+    public bool Estado;
     public TipoDonacion tipo;
+    public Sprite Imagen;
+
+   // public DonacionRasgo[] rasgos;
+   
 }
 
 [System.Serializable]
 public class DonacionRasgo
 {
-    public string rasgo;
-    public bool esPositivo;
+  
 }
 
     public enum TipoDonacion
@@ -21,7 +24,5 @@ public class DonacionRasgo
         Comida,
         Ropa,
         Medicamento,
-        Dinero,
-        Juguete,
-        Insumos
+        Agua
     }

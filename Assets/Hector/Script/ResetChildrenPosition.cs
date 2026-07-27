@@ -23,17 +23,19 @@ public class ResetChildrenPosition : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
+           
             Transform child = transform.GetChild(i);
 
             // Si el propio spawnPoint es un hijo de este objeto, lo ignoramos para no moverlo
-            if (spawnPoint != null && child == spawnPoint)
+            if (spawnPoint != null && child == spawnPoint && !child.tag.Equals("Mantel"))
             {
-                continue;
+                float yPos = startY - (i * distanciaY);
+                child.localPosition = new Vector3(0f, yPos, 0f);
+              
             }
-
+          
             // El primer hijo queda en la Y del spawnPoint, y los siguientes van bajando
-            float yPos = startY - (i * distanciaY);
-            child.localPosition = new Vector3(0f, yPos, 0f);
+           
         }
 
         Debug.Log($"Se alinearon los hijos verticalmente desde el Spawn Point.");

@@ -6638,6 +6638,70 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuStart
       objectReference: {fileID: 0}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1191556948}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: NuevaMelodia
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: MusicMixed, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305805466113219402, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1191556948}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: NuevaMelodia
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: MusicMixed, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663018914183103395, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5933372680107147742, guid: a947d2a98f9a9f64894cf6206c102ad3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -12771,12 +12835,12 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1191556948}
         m_TargetAssemblyTypeName: MusicMixed, Assembly-CSharp
-        m_MethodName: NuevaMelodia
-        m_Mode: 3
+        m_MethodName: PresionarBoton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -12972,6 +13036,10 @@ PrefabInstance:
     - target: {fileID: 7574874251128472634, guid: 2db5715c444d86e4bae8bf3d2f61245b, type: 3}
       propertyPath: m_Name
       value: Transiciones
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574874251128472634, guid: 2db5715c444d86e4bae8bf3d2f61245b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

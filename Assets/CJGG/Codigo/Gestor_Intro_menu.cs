@@ -27,7 +27,7 @@ public class Gestor_Intro_menu : MonoBehaviour
     public void ElegirPlayers(int a) 
     {
         PlayerPrefs.SetInt("NPlayer", a);
-        Transiciones.Index.TFinal("");
+        Transiciones.Index.TFinal("SampleScene");
     }
   
     // Start is called once before the first execution of Update after the MonoBehaviour is created

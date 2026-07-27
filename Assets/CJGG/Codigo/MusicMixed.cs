@@ -170,7 +170,7 @@ public class MusicMixed : MonoBehaviour
         }
         if (PlayList[mB].isPlaying)
         {
-            PlayList[mB].Stop();
+            PlayList[mB].volume=0;
         }
         return;
 

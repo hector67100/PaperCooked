@@ -53,6 +53,8 @@ MonoBehaviour:
     esPositivo: 1
   - rasgo: Nuevo
     esPositivo: 1
+  - rasgo: Ras
+    esPositivo: 1
   tipo: 1
 --- !u!50 &536392308526257187
 Rigidbody2D:
@@ -115,7 +117,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.056859255, y: 0.07310486}
+  m_Offset: {x: 0.09650493, y: 0.066532135}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -125,7 +127,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.1137185, y: 1.1462097}
+  m_Size: {x: 0.3327422, y: 0.47578955}
   m_EdgeRadius: 0
 --- !u!1 &5244570353455445317
 GameObject:

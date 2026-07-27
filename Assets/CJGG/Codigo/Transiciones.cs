@@ -47,7 +47,7 @@ public class Transiciones : MonoBehaviour
 
         while (stateInfo.normalizedTime < 1.0f && !Transicion.IsInTransition(0))
         {
-            Debug.Log(stateInfo.normalizedTime);
+            //Debug.Log(stateInfo.normalizedTime);
             stateInfo = Transicion.GetCurrentAnimatorStateInfo(0);
             yield return null;
         }

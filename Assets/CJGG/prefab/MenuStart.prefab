@@ -2288,7 +2288,6 @@ GameObject:
   - component: {fileID: 3496327757955006957}
   - component: {fileID: 4781419328075863085}
   - component: {fileID: 2820653973028189368}
-  - component: {fileID: 6392439692159453785}
   m_Layer: 5
   m_Name: MenuStart
   m_TagString: Untagged
@@ -2392,28 +2391,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Transicion: {fileID: 0}
---- !u!95 &6392439692159453785
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4848011977234300714}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4852532174548187284
 GameObject:
   m_ObjectHideFlags: 0
@@ -2851,7 +2828,7 @@ Animator:
   m_GameObject: {fileID: 5362654236028132003}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3761266c636db1c4a8fe8c7166dd96d4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 56f8a15abf6945c438b55d2f682a4046, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3798,7 +3775,7 @@ Animator:
   m_GameObject: {fileID: 6137775189322523868}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3761266c636db1c4a8fe8c7166dd96d4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5fa85284094c95f4abe702ddf4519f94, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4931,7 +4908,7 @@ Animator:
   m_GameObject: {fileID: 8845709512347735175}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3761266c636db1c4a8fe8c7166dd96d4, type: 2}
+  m_Controller: {fileID: 9100000, guid: b9cb83320df84bd41bd761dde436da98, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

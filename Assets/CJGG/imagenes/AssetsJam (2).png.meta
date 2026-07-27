@@ -394,7 +394,7 @@ TextureImporter:
         width: 21
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -416,7 +416,7 @@ TextureImporter:
         width: 28
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,6 +425,28 @@ TextureImporter:
       bones: []
       spriteID: 0484239328318c34990f8f186e8e0671
       internalID: -387120383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJam (2)_12
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 76
+        width: 49
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a947fd959a46b6b4d9376d946788b761
+      internalID: 182878156
       vertices: []
       indices: 
       edges: []
@@ -447,6 +469,7 @@ TextureImporter:
       AssetsJam (2)_1: -6149434209890110114
       AssetsJam (2)_10: -65567953
       AssetsJam (2)_11: -387120383
+      AssetsJam (2)_12: 182878156
       AssetsJam (2)_2: -3598848149107577200
       AssetsJam (2)_3: 2057782334737945065
       AssetsJam (2)_4: 2039560442244267865

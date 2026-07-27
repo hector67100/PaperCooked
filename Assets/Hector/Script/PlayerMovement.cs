@@ -14,10 +14,10 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Marca TRUE si quieres que el sprite se voltee horizontalmente (Flip X). FALSE si prefieres rotar la escala.")]
     [SerializeField] private bool useSpriteRendererFlip = true;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private Vector2 movementInput;
-    private SpriteRenderer spriteRenderer;
-    private Animator anim;
+    public SpriteRenderer spriteRenderer;
+    public Animator anim;
 
     private void Awake()
     {

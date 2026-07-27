@@ -1,8 +1,14 @@
+using JetBrains.Annotations;
+using System.Collections.Generic;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class ResetChildrenPosition : MonoBehaviour
 {
-[Header("Referencia de Inicio")]
+    public List<GameObject> Spawns;
+    public List<GameObject> Articulos;
+
+    [Header("Referencia de Inicio")]
     [Tooltip("Objeto que define la posición desde donde empezará la lista.")]
     [SerializeField] private Transform spawnPoint;
 
@@ -10,40 +16,26 @@ public class ResetChildrenPosition : MonoBehaviour
     [SerializeField] private float distanciaY = 0.2f;
 
     [ContextMenu("Organizar Hijos en Y")]
+
+    public int RR(int i)
+    {
+      return  Random.Range(0, i);
+    }
     public void OrganizarHijos()
     {
-        // Determinamos el Y inicial: la Y local del spawnPoint (si existe) o 0f
-        float startY = 0f;
 
-        if (spawnPoint != null)
+        for (int i = 0; i < Spawns.Count; i++)
         {
-            // Convertimos la posición del spawnPoint a espacio local respecto a este padre
-            startY = transform.InverseTransformPoint(spawnPoint.position).y;
+            GameObject objeto = Instantiate(Articulos[RR(Articulos.Count)], new Vector3(0f, 0, 0), Quaternion.identity);
+            //  objeto.transform.SetParent(mesa.transform);
+            objeto.transform.position = Spawns[i].transform.position;
         }
-
-        for (int i = 0; i < transform.childCount; i++)
-        {
-           
-            Transform child = transform.GetChild(i);
-
-            // Si el propio spawnPoint es un hijo de este objeto, lo ignoramos para no moverlo
-            if (spawnPoint != null && child == spawnPoint && !child.tag.Equals("Mantel"))
-            {
-                float yPos = startY - (i * distanciaY);
-                child.localPosition = new Vector3(0f, yPos, 0f);
-              
-            }
-          
-            // El primer hijo queda en la Y del spawnPoint, y los siguientes van bajando
-           
-        }
-
-        Debug.Log($"Se alinearon los hijos verticalmente desde el Spawn Point.");
+        
     }
 
     private void Start()
     {
         // Opcional: Descomenta esta línea si quieres que lo haga automáticamente al iniciar el juego.
-        OrganizarHijos();
+   
     }
 }

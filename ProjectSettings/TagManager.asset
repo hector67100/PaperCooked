@@ -50,5 +50,8 @@ TagManager:
   - name: Jugador
     uniqueID: 2380665293
     locked: 0
+  - name: Interactuable
+    uniqueID: 1530344315
+    locked: 0
   m_RenderingLayers:
   - Default

@@ -26,9 +26,9 @@ public class ResetChildrenPosition : MonoBehaviour
 
         for (int i = 0; i < Spawns.Count; i++)
         {
-            GameObject objeto = Instantiate(Articulos[RR(Articulos.Count)], new Vector3(0f, 0, 0), Quaternion.identity);
+            GameObject objeto = Instantiate(Articulos[RR(Articulos.Count)], Spawns[i].transform.position, Quaternion.identity);
             //  objeto.transform.SetParent(mesa.transform);
-            objeto.transform.position = Spawns[i].transform.position;
+         
         }
         
     }

@@ -48,14 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Donacion
   nombre: Pantalon
-  rasgos:
-  - rasgo: Limpia
-    esPositivo: 1
-  - rasgo: Nuevo
-    esPositivo: 1
-  - rasgo: Ras
-    esPositivo: 1
+  Estado: 0
   tipo: 1
+  Imagen: {fileID: 0}
 --- !u!50 &536392308526257187
 Rigidbody2D:
   serializedVersion: 5
@@ -206,9 +201,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 1530344315
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9131552974129774462, guid: fabb2a183e18e9f4ea635c871033bc87, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

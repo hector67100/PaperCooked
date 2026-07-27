@@ -77,9 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 1530344315
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7956286224152301485, guid: 8810ae0120b3df2489d7e33a59034b16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -139,8 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Donacion
   nombre: Franela
-  rasgo: 
-  esPositivo: 0
+  Estado: 0
   tipo: 1
   Imagen: {fileID: -7956286224152301485, guid: 8810ae0120b3df2489d7e33a59034b16, type: 3}
 --- !u!50 &8946365794500895066

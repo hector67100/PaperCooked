@@ -1182,6 +1182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 7
+  movimientoX: 0
+  movimientoY: 0
   useSpriteRendererFlip: 1
 --- !u!50 &958692953
 Rigidbody2D:
@@ -1259,7 +1261,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8389172872710853538, guid: fabb2a183e18e9f4ea635c871033bc87, type: 3}
+  m_Sprite: {fileID: 155264584, guid: fabb2a183e18e9f4ea635c871033bc87, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1345,6 +1347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   objetoTomar: {fileID: 0}
   caja: {fileID: 0}
+  puedeDonar: 0
   interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   arrojarAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   fuerzaLanzamiento: 5
@@ -1382,10 +1385,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
-  m_CategoryHash: 5.449709e-22
-  m_labelHash: 2.2425438e-38
+  m_CategoryHash: 1.8625731e-11
+  m_labelHash: 2.6091763e-27
   m_SpriteKey: 0
-  m_SpriteHash: 407771449
+  m_SpriteHash: 459707608
 --- !u!114 &958692960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,9 +1616,9 @@ MonoBehaviour:
   - donaciones: []
     listaCantidadDonaciones:
     - donacionTipo: 1
-      cantidad: 2
+      cantidad: 1
     cantidadTotal: 0
-    cantidadMaxima: 10
+    cantidadMaxima: 1
     completado: 0
   - donaciones: []
     listaCantidadDonaciones:
@@ -1633,6 +1636,7 @@ MonoBehaviour:
     cantidadMaxima: 0
     completado: 0
   mesa: {fileID: 865656383}
+  donacionesHechas: 0
 --- !u!4 &1072186785
 Transform:
   m_ObjectHideFlags: 0

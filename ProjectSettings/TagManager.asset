@@ -47,6 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Suelo
+    uniqueID: 3679159583
+    locked: 0
   - name: Interactuable
     uniqueID: 1530344315
     locked: 0

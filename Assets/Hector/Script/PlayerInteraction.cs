@@ -9,6 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     public bool puedeDonar = false;
     public bool eliminar = false;
     public GameObject Posicion_donacion;
+    [SerializeField] TipoDonacion tipoDonacionPermitida;
 
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private InputActionReference arrojarAction;
@@ -55,8 +56,19 @@ public class PlayerInteraction : MonoBehaviour
 
             if(puedeDonar && objetoTomar != null)
             {
-                GameManager.instance.AddDonacion(objetoTomar);
-                objetoTomar = null;
+                if(objetoTomar.TryGetComponent<Donacion>(out Donacion cajaDonacionEnvio))
+                {
+                    Debug.Log("Tipo de donación: " + cajaDonacionEnvio.tipo);
+                    if(cajaDonacionEnvio.tipo == tipoDonacionPermitida)
+                    {
+                        GameManager.instance.AddDonacion(objetoTomar);
+                        objetoTomar = null;
+                    }
+                    else
+                    {
+                        Debug.Log("Tipo de donación no permitido.");
+                    }
+                }
             }
 
             if(eliminar && objetoTomar != null)
@@ -117,11 +129,26 @@ public class PlayerInteraction : MonoBehaviour
             break;
             case "Donar":
                 puedeDonar = true;
+                if(other.gameObject.GetComponent<CajaDonacionEnvio>() != null)
+                {
+                    tipoDonacionPermitida = other.gameObject.GetComponent<CajaDonacionEnvio>().tipoDonacion;
+                }
+                
             break;
             case "Basura":
                 eliminar = true;
             break;
 
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if(!puedeDonar && other.gameObject.CompareTag("Donar"))
+        {
+
+            puedeDonar = true;
         }
 
     }

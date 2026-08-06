@@ -58,7 +58,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if(objetoTomar.TryGetComponent<Donacion>(out Donacion cajaDonacionEnvio))
                 {
-                    Debug.Log("Tipo de donación: " + cajaDonacionEnvio.tipo);
+
                     if(cajaDonacionEnvio.tipo == tipoDonacionPermitida)
                     {
                         GameManager.instance.AddDonacion(objetoTomar);

@@ -77,9 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 1530344315
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6950952688569355720, guid: 13571cb89262bac43ac9b0cfca1fcd91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -139,12 +139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Donacion
   nombre: Agua
-  rasgos:
-  - rasgo: Limpia
-    esPositivo: 1
-  - rasgo: Nuevo
-    esPositivo: 1
-  tipo: 0
+  Estado: 0
+  tipo: 3
+  Imagen: {fileID: 0}
 --- !u!50 &2599699344511256825
 Rigidbody2D:
   serializedVersion: 5

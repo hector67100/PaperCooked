@@ -77,9 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 1530344315
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6923039099251068442, guid: 13571cb89262bac43ac9b0cfca1fcd91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -119,8 +119,8 @@ Transform:
   m_GameObject: {fileID: 5445989945767759385}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 331.527, y: 117.832504, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5412089631745106620}
@@ -138,13 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869d6fc314428684b9074232d33959cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Donacion
-  nombre: Salsa
-  rasgos:
-  - rasgo: Limpia
-    esPositivo: 1
-  - rasgo: Nuevo
-    esPositivo: 1
-  tipo: 0
+  nombre: Medicinas
+  Estado: 0
+  tipo: 2
+  Imagen: {fileID: 0}
 --- !u!50 &8080204755039455229
 Rigidbody2D:
   serializedVersion: 5

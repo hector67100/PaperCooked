@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public ListasDonaciones[] listasDonaciones;
     public ListasDonaciones listasDonacionActiva;
+    public ListasDonaciones[] listasDonacionesTerminadas;
     public GameObject mesa;
     public int donacionesHechas = 0;
     void Start()
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
         }
 
         listasDonacionActiva = listasDonaciones[0];
+        UIManager.instance.lista = listasDonacionActiva;
+        UIManager.instance.ActualizarHoja(false);
     }
 
     public void aparecerDonaciones(GameObject[] lista)
@@ -36,6 +39,8 @@ public class GameManager : MonoBehaviour
         if(donacionesHechas < listasDonaciones.Length)
         {
             listasDonacionActiva = listasDonaciones[donacionesHechas];
+            UIManager.instance.lista =listasDonaciones[donacionesHechas];
+            UIManager.instance.SacarHoja();
         }   
     }
 

@@ -47,10 +47,10 @@ public class ListasDonaciones
                 }
             }
             
+            UIManager.instance.ActualizarHojaCantidad(lista.donacionTipo, cantidad);
             if(cantidad < lista.cantidad)
             {
                 completado = false;
-                break;
             }
         }
 

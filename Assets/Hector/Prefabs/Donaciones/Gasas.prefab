@@ -48,12 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Donacion
   nombre: Salsa
-  rasgos:
-  - rasgo: Limpia
-    esPositivo: 1
-  - rasgo: Nuevo
-    esPositivo: 1
-  tipo: 0
+  Estado: 0
+  tipo: 2
+  Imagen: {fileID: 0}
 --- !u!50 &3392106538943100073
 Rigidbody2D:
   serializedVersion: 5
@@ -204,9 +201,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 1530344315
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8460864395971363186, guid: 13571cb89262bac43ac9b0cfca1fcd91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

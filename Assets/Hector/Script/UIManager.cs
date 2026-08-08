@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
     public GameObject uiHoja;
     public Transform[] uiHojaHijos;
     public Animator anim;
+    public GameObject dataUI;
+    public Animator DataUIAnim;
     public ListasDonaciones lista;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,5 +67,20 @@ public class UIManager : MonoBehaviour
             child.gameObject.SetActive(false);
         }
         ActualizarHoja();
+    }
+
+    public void MostrarDataUI(bool mostrar = false, Sprite sprite = null, string texto = "")
+    {
+        if(mostrar)
+        {
+            dataUI.GetComponentInChildren<UnityEngine.UI.Image>().sprite = sprite;
+            dataUI.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = texto;
+
+            DataUIAnim.Play("INDatoUI");
+        }
+        else
+        {
+            DataUIAnim.Play("OUTDatoUI");
+        }
     }
 }

@@ -8,8 +8,10 @@ public class PlayerInteraction : MonoBehaviour
     public CajaDonacion caja;
     public bool puedeDonar = false;
     public bool eliminar = false;
+    public bool puedeGuardar = false;
     public GameObject Posicion_donacion;
     [SerializeField] TipoDonacion tipoDonacionPermitida;
+    [SerializeField] CajaGuardadoObjetos guardadoObjeto;
 
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private InputActionReference arrojarAction;
@@ -78,6 +80,17 @@ public class PlayerInteraction : MonoBehaviour
                 Destroy(objetoTomar);
                 objetoTomar = null;
             }
+
+            if(puedeGuardar & objetoTomar != null)
+            {
+                guardadoObjeto.GuardarEnCaja(objetoTomar);
+                objetoTomar.SetActive(false);
+                objetoTomar = null;
+            }
+            else if(puedeGuardar & objetoTomar == null & guardadoObjeto !=null)
+            {
+                guardadoObjeto.SpawnearObjetosEnMesa();
+            }
         }
 
         // --- ARROJAR OBJETO HACIA EL MOUSE ---
@@ -123,6 +136,10 @@ public class PlayerInteraction : MonoBehaviour
                     objetoTomar = other.gameObject;
                 }
             break;
+            case "Guardar":
+             puedeGuardar = true;
+             guardadoObjeto = other.gameObject.GetComponent<CajaGuardadoObjetos>();
+            break;
             case "Caja":
                 if (caja == null)
                 {
@@ -149,7 +166,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         if(!puedeDonar && other.gameObject.CompareTag("Donar"))
         {
-
             puedeDonar = true;
         }
 
@@ -167,6 +183,10 @@ public class PlayerInteraction : MonoBehaviour
             break;
             case "Caja":
                 caja = null;
+            break;
+            case "Guardar":
+             puedeGuardar = false;
+             guardadoObjeto = null;
             break;
             case "Donar":
                 puedeDonar = false;

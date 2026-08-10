@@ -10,6 +10,7 @@ TagManager:
   - Donar
   - Caja
   - Mantel
+  - Spawn
   layers:
   - Default
   - TransparentFX

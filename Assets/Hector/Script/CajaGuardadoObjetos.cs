@@ -32,38 +32,77 @@ public class CajaGuardadoObjetos : MonoBehaviour
     public void  SpawnearObjetosEnMesa()
     {
         // foreach
-        int check = 0;
-        foreach(Transform child in Mesa.transform)
-        {
-            if(child.transform.tag != "Spawn" || child.transform.tag != "Guardar")
-            {
-                check++;
-            }
-        }
 
+        int check = ContarObjetosPuestos();
+        Debug.Log(check);
         if(check == spawns.Length)
         {
             return;    
         }
 
+        Debug.Log(check);
+
         if(tieneObjetos)
         {
-            int index = 0;
+
+         int index = check;
+         int borrar = 0;   
             foreach(GameObject child in objetosAGuardar)
             {
                 if (index == spawns.Length) break;
+                int posicion = ConseguirSpawnLibre();
+                Debug.Log(posicion);
                 child.SetActive(true);
-                child.transform.SetParent(Mesa.transform);
-                child.transform.position = spawns[index].position;
+                child.transform.SetParent(spawns[posicion]);
+                child.transform.position = spawns[posicion].position;
                 index++;
+                borrar++;
             }
 
-            objetosAGuardar.RemoveRange(0,index);
+            objetosAGuardar.RemoveRange(0,borrar);
             
             if(objetosAGuardar.Count == 0)
             {
                 tieneObjetos = false;
             }
         }
+    }
+
+    public int ContarObjetosPuestos()
+    {
+        int objetos = 0;
+        foreach(Transform child in Mesa.transform)
+        {
+            if(child.transform.tag != "Guardar" && child.transform.tag != "Mantel")
+            {
+                if(child.transform.childCount>0)
+                {
+                    objetos++;
+                }
+            }
+        }
+
+        return objetos;
+    }
+
+    public int ConseguirSpawnLibre()
+    {
+        int spawnVacio = 0;
+        foreach(Transform child in Mesa.transform)
+        {
+            Debug.Log(child.name);
+            if( child.transform.tag != "Guardar" && child.transform.tag != "Mantel")
+            {
+                
+                if(child.transform.childCount==0)
+                {
+                    return spawnVacio;
+                }
+
+                spawnVacio++;
+            }
+        }
+
+        return spawnVacio;
     }
 }

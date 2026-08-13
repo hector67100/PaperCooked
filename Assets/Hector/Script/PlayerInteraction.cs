@@ -1,10 +1,13 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerInteraction : MonoBehaviour
 {
     public GameObject objetoTomar;
+    private GameObject objetoTomado;
     public CajaDonacion caja;
     public bool puedeDonar = false;
     public bool eliminar = false;
@@ -12,22 +15,31 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject Posicion_donacion;
     [SerializeField] TipoDonacion tipoDonacionPermitida;
     [SerializeField] CajaGuardadoObjetos guardadoObjeto;
+    HashSet<GameObject> donacionColisionada = new HashSet<GameObject>();
+    public List<GameObject> donacionLista = new List<GameObject>();
 
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private InputActionReference arrojarAction;
 
-    [SerializeField] private float fuerzaLanzamiento = 15f; // Ajusta este valor según la masa del objeto
+    [SerializeField] private InputActionReference proximoObjetoAction;
+    [SerializeField] private InputActionReference anteriorObjetoAction;
+    [SerializeField] private float fuerzaLanzamiento = 15f;
+    private int cambioSelector = 0;
 
     private void OnEnable()
     {
         if (interactAction != null) interactAction.action.Enable();
         if (arrojarAction != null) arrojarAction.action.Enable();
+        if (proximoObjetoAction != null) proximoObjetoAction.action.Enable();
+        if (anteriorObjetoAction != null) anteriorObjetoAction.action.Enable();
     }
 
     private void OnDisable()
     {
         if (interactAction != null) interactAction.action.Disable();
         if (arrojarAction != null) arrojarAction.action.Disable();
+        if (proximoObjetoAction != null) proximoObjetoAction.action.Disable();
+        if (anteriorObjetoAction != null) anteriorObjetoAction.action.Disable();
     }
 
     void Update()
@@ -46,9 +58,12 @@ public class PlayerInteraction : MonoBehaviour
                     rb.bodyType = RigidbodyType2D.Kinematic;
                     rb.linearVelocity = Vector2.zero;
                 }
+                
+                objetoTomar.GetComponent<DonacionSelector>().Apagar();
+                objetoTomado = objetoTomar;
             }
 
-            if(caja != null)
+            if(caja != null && objetoTomar==null)
             {
                 if(!caja.open)
                 {
@@ -57,15 +72,15 @@ public class PlayerInteraction : MonoBehaviour
                 
             }
 
-            if(puedeDonar && objetoTomar != null)
+            if(puedeDonar && objetoTomado != null)
             {
-                if(objetoTomar.TryGetComponent<Donacion>(out Donacion cajaDonacionEnvio))
+                if(objetoTomado.TryGetComponent<Donacion>(out Donacion cajaDonacionEnvio))
                 {
 
                     if(cajaDonacionEnvio.tipo == tipoDonacionPermitida)
                     {
-                        GameManager.instance.AddDonacion(objetoTomar);
-                        objetoTomar = null;
+                        GameManager.instance.AddDonacion(objetoTomado);
+                        objetoTomado = null;
                         UIManager.instance.MostrarDataUI(false);
                     }
                     else
@@ -75,19 +90,19 @@ public class PlayerInteraction : MonoBehaviour
                 }
             }
 
-            if(eliminar && objetoTomar != null)
+            if(eliminar && objetoTomado != null)
             {
-                Destroy(objetoTomar);
-                objetoTomar = null;
+                Destroy(objetoTomado);
+                objetoTomado = null;
             }
 
-            if(puedeGuardar & objetoTomar != null)
+            if(puedeGuardar & objetoTomado != null)
             {
-                guardadoObjeto.GuardarEnCaja(objetoTomar);
-                objetoTomar.SetActive(false);
-                objetoTomar = null;
+                guardadoObjeto.GuardarEnCaja(objetoTomado);
+                objetoTomado.SetActive(false);
+                objetoTomado = null;
             }
-            else if(puedeGuardar & objetoTomar == null & guardadoObjeto !=null)
+            else if(puedeGuardar & objetoTomado == null & guardadoObjeto !=null)
             {
                 guardadoObjeto.SpawnearObjetosEnMesa();
             }
@@ -97,7 +112,7 @@ public class PlayerInteraction : MonoBehaviour
         if (arrojarAction != null && arrojarAction.action.WasPressedThisFrame())
         {
             // Verificamos que tengamos un objeto tomado y que sea nuestro hijo
-            if (objetoTomar != null && objetoTomar.transform.parent == transform)
+            if (objetoTomado != null && objetoTomado.transform.parent == transform)
             {
                 // 1. Obtener la posición del mouse en la pantalla con el nuevo Input System
                 Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
@@ -110,10 +125,10 @@ public class PlayerInteraction : MonoBehaviour
                 Vector2 direccionLanzamiento = (mouseWorldPosition - (Vector2)transform.position).normalized;
 
                 // 4. Desvincular el objeto del jugador
-                objetoTomar.transform.SetParent(null);
+                objetoTomado.transform.SetParent(null);
 
                 // 5. Aplicar la fuerza
-                if (objetoTomar.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+                if (objetoTomado.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
                 {
                     rb.bodyType = RigidbodyType2D.Dynamic;
                     rb.gravityScale = 0;
@@ -121,8 +136,35 @@ public class PlayerInteraction : MonoBehaviour
                 }
 
                 // 6. Soltar la referencia
-                objetoTomar = null;
+                objetoTomado = null;
             }
+        }
+
+        if(proximoObjetoAction.action.WasPressedThisFrame())
+        {
+            cambioSelector++;
+            cambioSelector = cambioSelector > donacionLista.Count-1 ? 0 : cambioSelector;
+            if( donacionLista.Count > 1)
+            {
+                objetoTomar.GetComponent<DonacionSelector>().Apagar();
+                objetoTomar = donacionLista[cambioSelector];
+                objetoTomar.GetComponent<DonacionSelector>().Activar();
+            }
+
+        }
+
+        if(anteriorObjetoAction.action.WasPressedThisFrame())
+        {
+           
+            cambioSelector--;
+            cambioSelector = cambioSelector < 0 ? donacionLista.Count-1 : cambioSelector;
+            if( donacionLista.Count > 1)
+            {
+                objetoTomar.GetComponent<DonacionSelector>().Apagar();
+                objetoTomar = donacionLista[cambioSelector];
+                objetoTomar.GetComponent<DonacionSelector>().Activar();
+            }
+        
         }
     }
 
@@ -134,7 +176,15 @@ public class PlayerInteraction : MonoBehaviour
                 if (objetoTomar == null)
                 {
                     objetoTomar = other.gameObject;
+                    objetoTomar.GetComponent<DonacionSelector>().Activar();
                 }
+                // donacionColisionada.Add(other.gameObject);
+                // donacionLista = donacionColisionada.ToList();
+                if(!donacionLista.Contains(other.gameObject))
+                {
+                    donacionLista.Add(other.gameObject);
+                }
+                
             break;
             case "Guardar":
              puedeGuardar = true;
@@ -178,8 +228,13 @@ public class PlayerInteraction : MonoBehaviour
             case "Donacion":
                 if (objetoTomar == other.gameObject && objetoTomar.transform.parent != transform)
                 {
+                    objetoTomar.GetComponent<DonacionSelector>().Apagar();
                     objetoTomar = null;
+                    // donacionColisionada.Remove(other.gameObject);
+                    // donacionLista = donacionColisionada.ToList();
+                   
                 }
+                 donacionLista.Remove(other.gameObject);
             break;
             case "Caja":
                 caja = null;

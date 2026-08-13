@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public ListasDonaciones[] listasDonacionesTerminadas;
     public GameObject mesa;
     public int donacionesHechas = 0;
+
+    private float Tiempo = 500;
     void Start()
     {
         if (instance == null)
@@ -19,6 +21,20 @@ public class GameManager : MonoBehaviour
         listasDonacionActiva = listasDonaciones[0];
         UIManager.instance.lista = listasDonacionActiva;
         UIManager.instance.ActualizarHoja(false);
+    }
+
+    void Update()
+    {
+        if (Tiempo > 0)
+        {
+            Tiempo -= Time.deltaTime;
+        }
+        else
+        {
+            Tiempo = 0;
+        }
+        
+        UIManager.instance.ActualizarTextoUI(Tiempo);
     }
 
     public void aparecerDonaciones(GameObject[] lista)

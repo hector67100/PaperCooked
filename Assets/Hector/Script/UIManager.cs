@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject dataUI;
     public Animator DataUIAnim;
     public ListasDonaciones lista;
+    [SerializeField] private TMP_Text textoTiempo;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -81,6 +83,19 @@ public class UIManager : MonoBehaviour
         else
         {
             DataUIAnim.Play("OUTDatoUI");
+        }
+    }
+
+    public void ActualizarTextoUI(float tiempoEnSegundos)
+    {
+        if (tiempoEnSegundos < 0) tiempoEnSegundos = 0;
+
+        int minutos = Mathf.FloorToInt(tiempoEnSegundos / 60);
+        int segundos = Mathf.FloorToInt(tiempoEnSegundos % 60);
+
+        if (textoTiempo != null)
+        {
+            textoTiempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
         }
     }
 }

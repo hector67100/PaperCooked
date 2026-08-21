@@ -4084,7 +4084,7 @@ MonoBehaviour:
   moveSpeed: 7
   movimientoX: 0
   movimientoY: 0
-  useSpriteRendererFlip: 1
+  useSpriteRendererFlip: 0
   rb: {fileID: 0}
   spriteRenderer: {fileID: 0}
   anim: {fileID: 0}

@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+
 using System.Collections.Generic;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
@@ -24,18 +24,27 @@ public class ResetChildrenPosition : MonoBehaviour
     public void OrganizarHijos()
     {
 
-        for (int i = 0; i < Spawns.Count; i++)
-        {
-            GameObject objeto = Instantiate(Articulos[RR(Articulos.Count)],new Vector3 (transform.position.x,Spawns[i].transform.position.y,Spawns[i].transform.position.z), Quaternion.identity);
-            //  objeto.transform.SetParent(Spawns[i].transform);
-         
-        }
+            for (int i = 0; i < Spawns.Count; i++)
+            {
+                GameObject objeto = Instantiate(Articulos[RR(Articulos.Count)],new Vector3 (transform.position.x,Spawns[i].transform.position.y,Spawns[i].transform.position.z), Quaternion.identity);
+                objeto.transform.SetParent(Spawns[i].transform);
+            
+            }        
         
     }
 
-    private void Start()
+    public int ContarObjetosPuestos()
     {
-        // Opcional: Descomenta esta línea si quieres que lo haga automáticamente al iniciar el juego.
-   
+        int objetos = 0;
+        foreach(GameObject child in Spawns)
+        {
+            if(child.transform.childCount>0)
+            {
+                objetos++;
+            }
+            
+        }
+
+        return objetos;
     }
 }

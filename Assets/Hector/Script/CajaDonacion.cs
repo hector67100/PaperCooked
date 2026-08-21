@@ -15,10 +15,13 @@ public class CajaDonacion : MonoBehaviour
     public void AbrirCaja()
     {if (open)
             return;
-        open = true;
-        Caja_img.sprite = Abierto;
-        Interactuable.SetActive(false);
-        aaaaa.OrganizarHijos();
+        if(aaaaa.ContarObjetosPuestos() == 0)
+        {
+            open = true;
+            Caja_img.sprite = Abierto;
+            Interactuable.SetActive(false);
+            aaaaa.OrganizarHijos();
+        } 
        /// GameManager.instance.aparecerDonaciones(donacionesCaja);
    
     }

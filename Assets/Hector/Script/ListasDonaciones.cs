@@ -77,6 +77,17 @@ public class ListasDonaciones
 
     }
 
+    public bool TipoEnLista(TipoDonacion donacionTipo)
+    {
+        bool esta = false;
+        foreach( ListaCantidadDonaciones tipoDonacion in  listaCantidadDonaciones)
+        {
+            if (tipoDonacion.donacionTipo == donacionTipo) esta = true;
+        }
+
+        return esta;
+    }
+
 
 }
 [System.Serializable]

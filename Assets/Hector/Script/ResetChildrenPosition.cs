@@ -21,15 +21,20 @@ public class ResetChildrenPosition : MonoBehaviour
     {
       return  Random.Range(0, i);
     }
+
     public void OrganizarHijos()
     {
+        Articulos = GameManager.instance.CajasDonaciones[GameManager.instance.CajaAUsar];
 
             for (int i = 0; i < Spawns.Count; i++)
             {
-                GameObject objeto = Instantiate(Articulos[RR(Articulos.Count)],new Vector3 (transform.position.x,Spawns[i].transform.position.y,Spawns[i].transform.position.z), Quaternion.identity);
+                GameObject objeto = Articulos[i];
+                objeto.SetActive(true);
+                objeto.transform.position = new Vector3 (transform.position.x,Spawns[i].transform.position.y,Spawns[i].transform.position.z);
                 objeto.transform.SetParent(Spawns[i].transform);
-            
-            }        
+            }
+
+        GameManager.instance.CajaAUsar++;        
         
     }
 

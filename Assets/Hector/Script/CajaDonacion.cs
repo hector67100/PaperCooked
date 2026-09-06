@@ -22,7 +22,7 @@ public class CajaDonacion : MonoBehaviour
             Interactuable.SetActive(false);
             aaaaa.OrganizarHijos();
         } 
-       /// GameManager.instance.aparecerDonaciones(donacionesCaja);
+    //    GameManager.instance.aparecerDonaciones(donacionesCaja);
    
     }
     public bool Cronometro(out float T, float tempo, float reset)

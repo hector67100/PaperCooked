@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9082013750157904006
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,6 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &7244246713970509130
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +145,9 @@ MonoBehaviour:
   Estado: 0
   tipo: 0
   Imagen: {fileID: 0}
+  rasgos:
+    negativo: 1
+    nombreRasgo: Fragil
 --- !u!50 &7251138439993872223
 Rigidbody2D:
   serializedVersion: 5

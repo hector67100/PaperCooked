@@ -51,7 +51,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 objetoTomar.transform.SetParent(Posicion_donacion.transform);
                 objetoTomar.transform.localPosition = Vector3.zero;
-                UIManager.instance.MostrarDataUI(true, objetoTomar.GetComponentInChildren<SpriteRenderer>().sprite, objetoTomar.name);
+                UIManager.instance.MostrarDataUI(true, objetoTomar.GetComponentInChildren<SpriteRenderer>().sprite, objetoTomar.GetComponent<Donacion>().rasgos.nombreRasgo);
 
                 if (objetoTomar.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
                 {

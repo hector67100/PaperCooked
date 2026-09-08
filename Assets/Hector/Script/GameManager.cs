@@ -15,10 +15,12 @@ public class GameManager : MonoBehaviour
     public int NumeroDeListas = 4;
     private float Tiempo = 500;
     public List<RasgoAsignador> rasgos = new List<RasgoAsignador>();
-    public int[,] objetos = new int[,] {{0,0},{1,0},{2,0},{3,0}};
+    public List<int> objetos = new List<int> {{0},{0},{0},{0}};
     public List<GameObject> donaciones = new List<GameObject>();
     public List<GameObject>[] CajasDonaciones;
     public int CajaAUsar = 0;
+    public int NumeroItems = 0;
+    public int NumeroItemsInvocado = 0;
 
     void Start()
     {
@@ -87,7 +89,7 @@ public class GameManager : MonoBehaviour
         int cantidadDonacionesMaximo = 0;
         for(int i = 0; i<NumeroDeListas; i++)
         {
-            int CantidadDeDonacions = Random.Range(1, 4);
+            int CantidadDeDonacions = Random.Range(1, 2);
             ListasDonaciones donacion = new ListasDonaciones();
 
             for(int j=0; j< CantidadDeDonacions; j++)
@@ -103,7 +105,8 @@ public class GameManager : MonoBehaviour
 
                 nueva.donacionTipo = tipo;
                 nueva.cantidad =  Random.Range(1, 3);
-                objetos[tipoNum,0] += nueva.cantidad;
+                objetos[tipoNum] += nueva.cantidad;
+                NumeroItems++;
                 cantidadDonacionesMaximo += nueva.cantidad;
                 donacion.listaCantidadDonaciones.Add(nueva);
             }
@@ -178,16 +181,19 @@ public class GameManager : MonoBehaviour
         TipoDonacion tipoAAparecer;
         List<GameObject> donacionesListas;
         GameObject objetoInvocado;
-        for(int i=0; i< objetos.GetLength(0);i++)
+        for(int i=0; i< objetos.Count;i++)
         {
            tipoAAparecer = GetTipoDonacion(i);
            donacionesListas = donaciones.FindAll(x => x.GetComponent<Donacion>().tipo == tipoAAparecer && x.GetComponent<Donacion>().rasgos.nombreRasgo == "");
-           for(int j = 0; j< objetos[i,0]; j++)
+           for(int j = 0; j< objetos[i]; j++)
            {
+              
               objetoInvocado = Instantiate(donacionesListas[Random.Range(0,donacionesListas.Count)],new Vector3(0,0,0), Quaternion.identity);
               objetoInvocado.GetComponent<Donacion>().rasgos = AsignarRasgo(tipoAAparecer,true);
               objetoCajas.Add(objetoInvocado);
               objetoInvocado.SetActive(false);
+              NumeroItemsInvocado++;
+              
            }
         }
 
@@ -200,16 +206,20 @@ public class GameManager : MonoBehaviour
             donacionesListas = donaciones.FindAll(x => x.GetComponent<Donacion>().tipo == tipoAAparecer);
             objetoInvocado = Instantiate(donacionesListas[Random.Range(0,donacionesListas.Count)],new Vector3(0,0,0), Quaternion.identity);
             objetoInvocado.GetComponent<Donacion>().rasgos = objetoInvocado.GetComponent<Donacion>().rasgos.nombreRasgo == "" ? AsignarRasgo(tipoAAparecer,false) : objetoInvocado.GetComponent<Donacion>().rasgos;
+            Debug.Log("nombre:"+objetoInvocado.name);
+            Debug.Log("rasgo:"+objetoInvocado.GetComponent<Donacion>().rasgos.negativo);
             objetoCajas.Add(objetoInvocado);
             objetoInvocado.SetActive(false);
+            NumeroItemsInvocado++;
         }
 
         Mezclar(objetoCajas);
-        int cajas=(int)Mathf.Ceil(objetoCajas.Count/6);
+        int cajas= objetoCajas.Count % 6 > 0 ? Mathf.CeilToInt(objetoCajas.Count/6) + 1 : Mathf.CeilToInt(objetoCajas.Count/6);
         CajasDonaciones = new List<GameObject>[cajas];
         int countCaja = 0;
         int numCaja = 0;
         CajasDonaciones[numCaja] = new List<GameObject>();
+        Debug.Log(CajasDonaciones.Length);
 
         for(int i=0;i<objetoCajas.Count;i++)
         {
@@ -223,9 +233,14 @@ public class GameManager : MonoBehaviour
 
                 countCaja=0;
                 numCaja++;
-                CajasDonaciones[numCaja] = new List<GameObject>();
-                CajasDonaciones[numCaja].Add(objetoCajas[i]);
+                if(numCaja<CajasDonaciones.Length)
+                {
+                    CajasDonaciones[numCaja] = new List<GameObject>();
+                    CajasDonaciones[numCaja].Add(objetoCajas[i]);
+                }
+
             }
+            
         }
     }
 

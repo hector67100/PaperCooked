@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.lista = listasDonacionActiva;
         UIManager.instance.ActualizarHoja(false);
         GenerarCajas();
+        juegoTerminado = false;
     }
 
     void Update()
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 Tiempo = 0;
+                juegoTerminado = true;
             }
             
             UIManager.instance.ActualizarTextoUI(Tiempo);   
@@ -206,8 +208,6 @@ public class GameManager : MonoBehaviour
             donacionesListas = donaciones.FindAll(x => x.GetComponent<Donacion>().tipo == tipoAAparecer);
             objetoInvocado = Instantiate(donacionesListas[Random.Range(0,donacionesListas.Count)],new Vector3(0,0,0), Quaternion.identity);
             objetoInvocado.GetComponent<Donacion>().rasgos = objetoInvocado.GetComponent<Donacion>().rasgos.nombreRasgo == "" ? AsignarRasgo(tipoAAparecer,false) : objetoInvocado.GetComponent<Donacion>().rasgos;
-            Debug.Log("nombre:"+objetoInvocado.name);
-            Debug.Log("rasgo:"+objetoInvocado.GetComponent<Donacion>().rasgos.negativo);
             objetoCajas.Add(objetoInvocado);
             objetoInvocado.SetActive(false);
             NumeroItemsInvocado++;
@@ -219,7 +219,6 @@ public class GameManager : MonoBehaviour
         int countCaja = 0;
         int numCaja = 0;
         CajasDonaciones[numCaja] = new List<GameObject>();
-        Debug.Log(CajasDonaciones.Length);
 
         for(int i=0;i<objetoCajas.Count;i++)
         {

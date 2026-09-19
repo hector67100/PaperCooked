@@ -1287,6 +1287,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AssetsJam_2_6
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 229
+        width: 16
+        height: 13
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46864015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af0238f61f08c4747a9c1b6830fcbf33
+      internalID: 6732755183788376188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []

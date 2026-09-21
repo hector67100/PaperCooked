@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
     public void SacarHoja()
     {
         anim.Play("OUTPagina");
-
+        MusicMixed.index.Papel();
         foreach (Transform child in  uiHojaHijos)
         {
             child.gameObject.SetActive(false);

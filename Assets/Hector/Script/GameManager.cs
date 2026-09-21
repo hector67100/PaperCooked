@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
             listasDonacionActiva = listasDonaciones[donacionesHechas];
             UIManager.instance.lista =listasDonaciones[donacionesHechas];
             UIManager.instance.SacarHoja();
+            
         }
         else
         {

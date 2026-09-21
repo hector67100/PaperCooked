@@ -89,6 +89,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if(!caja.open)
                 {
+                MusicMixed.index.Abrir();
                    caja.AbrirCaja();
                 }
                 
@@ -116,6 +117,7 @@ public class PlayerInteraction : MonoBehaviour
             if(eliminar && objetoTomado != null)
             {
                 Destroy(objetoTomado);
+                MusicMixed.index.Depositar();
                 UIManager.instance.MostrarDataUI(false);
                 objetoTomado = null;
             }
@@ -123,11 +125,13 @@ public class PlayerInteraction : MonoBehaviour
             if(puedeGuardar & objetoTomado != null)
             {
                 guardadoObjeto.GuardarEnCaja(objetoTomado);
+                MusicMixed.index.Depositar();
                 objetoTomado.SetActive(false);
                 objetoTomado = null;
             }
             else if(puedeGuardar & objetoTomado == null & guardadoObjeto !=null)
             {
+                MusicMixed.index.Abrir();
                 guardadoObjeto.SpawnearObjetosEnMesa();
             }
         }

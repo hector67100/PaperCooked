@@ -7,7 +7,7 @@ public class MusicMixed : MonoBehaviour
 { //public 
     public AudioMixer Sonido;
     //public GameObject MusicOn, MusicOff, SFXOn, SFXOff;
-    public AudioSource Roca_choque,Presionar_Boton,premio_sonido;
+    public AudioSource Roca_choque,Presionar_Boton,premio_sonido,depositar,abrir,papel;
     public static MusicMixed index;
     public int mA, mB;
     public List<AudioSource> PlayList;
@@ -123,6 +123,18 @@ public class MusicMixed : MonoBehaviour
     public void PresionarBoton()
     {
         Presionar_Boton.Play();
+    }
+    public void Depositar()
+    {
+        depositar.Play();
+    }
+    public void Abrir()
+    {
+        abrir.Play();
+    }
+    public void Papel()
+    {
+        papel.Play();
     }
     public void OnOffSFX(bool a)
     {

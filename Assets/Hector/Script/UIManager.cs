@@ -8,9 +8,11 @@ public class UIManager : MonoBehaviour
     public Transform[] uiHojaHijos;
     public Animator anim;
     public GameObject dataUI;
+    public GameObject gameOverPanel;
     public Animator DataUIAnim;
     public ListasDonaciones lista;
     [SerializeField] private TMP_Text textoTiempo;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +33,7 @@ public class UIManager : MonoBehaviour
 
     public void ActualizarHoja( bool mostrar = true)
     {
+        
         int index = 0;
         foreach (ListaCantidadDonaciones child in lista.listaCantidadDonaciones)
         {
@@ -43,7 +46,7 @@ public class UIManager : MonoBehaviour
 
         if(mostrar)
         {
-            anim.Play("INPagina");
+            anim.Play("INPagina",0,0.0f);
         }
     }
 
@@ -96,6 +99,14 @@ public class UIManager : MonoBehaviour
         if (textoTiempo != null)
         {
             textoTiempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+        }
+    }
+
+    public void MostrarGameOver()
+    {
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
         }
     }
 }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public int donacionesHechas = 0;
     public bool juegoTerminado = false;
     public int NumeroDeListas = 4;
-    private float Tiempo = 500;
+    private float Tiempo = 240;
     public List<RasgoAsignador> rasgos = new List<RasgoAsignador>();
     public List<int> objetos = new List<int> {{0},{0},{0},{0}};
     public List<GameObject> donaciones = new List<GameObject>();
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
             {
                 Tiempo = 0;
                 juegoTerminado = true;
+                UIManager.instance.MostrarGameOver();
             }
             
             UIManager.instance.ActualizarTextoUI(Tiempo);   
@@ -69,13 +70,18 @@ public class GameManager : MonoBehaviour
     public void CambiarDonacion()
     {
         donacionesHechas++;
-
+        
         if(donacionesHechas < listasDonaciones.Length)
         {
             listasDonacionActiva = listasDonaciones[donacionesHechas];
             UIManager.instance.lista =listasDonaciones[donacionesHechas];
             UIManager.instance.SacarHoja();
-        }   
+        }
+        else
+        {
+            juegoTerminado = true;
+            UIManager.instance.MostrarGameOver();
+        }
     }
 
     public void AddDonacion(GameObject objeto)

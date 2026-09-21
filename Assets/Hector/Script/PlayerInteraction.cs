@@ -26,6 +26,27 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float fuerzaLanzamiento = 15f;
     private int cambioSelector = 0;
 
+    private GameObject ObtenerObjetoMasCercano()
+    {
+        GameObject objetoMasCercano = null;
+        float distanciaMinima = float.MaxValue;
+
+        foreach (GameObject obj in donacionLista)
+        {
+            if (obj != null)
+            {
+                float distancia = Vector3.Distance(transform.position, obj.transform.position);
+                if (distancia < distanciaMinima)
+                {
+                    distanciaMinima = distancia;
+                    objetoMasCercano = obj;
+                }
+            }
+        }
+
+        return objetoMasCercano;
+    }
+
     private void OnEnable()
     {
         if (interactAction != null) interactAction.action.Enable();
@@ -47,6 +68,7 @@ public class PlayerInteraction : MonoBehaviour
         // --- AGARRAR OBJETO ---
         if (interactAction != null && interactAction.action.WasPressedThisFrame())
         {
+
             if (objetoTomar != null)
             {
                 objetoTomar.transform.SetParent(Posicion_donacion.transform);
@@ -80,6 +102,7 @@ public class PlayerInteraction : MonoBehaviour
                     if(cajaDonacionEnvio.tipo == tipoDonacionPermitida)
                     {
                         GameManager.instance.AddDonacion(objetoTomado);
+                        MusicMixed.index.Premio();
                         objetoTomado = null;
                         UIManager.instance.MostrarDataUI(false);
                     }
@@ -93,6 +116,7 @@ public class PlayerInteraction : MonoBehaviour
             if(eliminar && objetoTomado != null)
             {
                 Destroy(objetoTomado);
+                UIManager.instance.MostrarDataUI(false);
                 objetoTomado = null;
             }
 
@@ -173,18 +197,26 @@ public class PlayerInteraction : MonoBehaviour
         switch(other.gameObject.tag)
         {
             case "Donacion":
-                if (objetoTomar == null)
-                {
-                    objetoTomar = other.gameObject;
-                    objetoTomar.GetComponent<DonacionSelector>().Activar();
-                }
-                // donacionColisionada.Add(other.gameObject);
-                // donacionLista = donacionColisionada.ToList();
                 if(!donacionLista.Contains(other.gameObject))
                 {
                     donacionLista.Add(other.gameObject);
                 }
                 
+                // Desactivar todos los selectores primero
+                foreach (GameObject obj in donacionLista)
+                {
+                    if (obj != null && obj.GetComponent<DonacionSelector>() != null)
+                    {
+                        obj.GetComponent<DonacionSelector>().Apagar();
+                    }
+                }
+                
+                // Activar solo el más cercano
+                objetoTomar = ObtenerObjetoMasCercano();
+                if (objetoTomar != null && objetoTomar.GetComponent<DonacionSelector>() != null)
+                {
+                    objetoTomar.GetComponent<DonacionSelector>().Activar();
+                }
             break;
             case "Guardar":
              puedeGuardar = true;
@@ -214,6 +246,29 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if(other.gameObject.CompareTag("Donacion"))
+        {
+            GameObject nuevoMasCercano = ObtenerObjetoMasCercano();
+            
+            // Solo actualizar si el objeto más cercano cambió
+            if (nuevoMasCercano != objetoTomar)
+            {
+                // Desactivar selector del objeto anterior
+                if (objetoTomar != null && objetoTomar.GetComponent<DonacionSelector>() != null)
+                {
+                    objetoTomar.GetComponent<DonacionSelector>().Apagar();
+                }
+                
+                // Actualizar y activar nuevo objeto más cercano
+                objetoTomar = nuevoMasCercano;
+                
+                if (objetoTomar != null && objetoTomar.GetComponent<DonacionSelector>() != null)
+                {
+                    objetoTomar.GetComponent<DonacionSelector>().Activar();
+                }
+            }
+        }
+        
         if(!puedeDonar && other.gameObject.CompareTag("Donar"))
         {
             puedeDonar = true;
@@ -230,8 +285,6 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     objetoTomar.GetComponent<DonacionSelector>().Apagar();
                     objetoTomar = null;
-                    // donacionColisionada.Remove(other.gameObject);
-                    // donacionLista = donacionColisionada.ToList();
                    
                 }
                  donacionLista.Remove(other.gameObject);

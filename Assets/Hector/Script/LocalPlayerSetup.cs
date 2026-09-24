@@ -7,6 +7,7 @@ public class LocalPlayerSetup : MonoBehaviour
     [Header("Jugadores")]
     [SerializeField] private GameObject jugador1;
     [SerializeField] private GameObject jugador2;
+    [SerializeField] private GameObject camJugador1;
 
     [Header("Cámara Jugador 2 (Render Texture)")]
     [SerializeField] private Camera camJugador2;
@@ -30,6 +31,7 @@ public class LocalPlayerSetup : MonoBehaviour
             jugador2.SetActive(true);
             SetupPlayerInputs(jugador2, "Gamepad");
             SetupCameraJugador2();
+            UIManager.instance.CambiarA2();
         }
         else
         {
@@ -41,6 +43,11 @@ public class LocalPlayerSetup : MonoBehaviour
             if (camJugador2 != null)
                 camJugador2.gameObject.SetActive(false);
         }
+    }
+
+    void Update()
+    {
+        camJugador1.transform.position = new Vector3(jugador1.transform.position.x,jugador1.transform.position.y,camJugador1.transform.position.z);
     }
 
     private void SetupCameraJugador2()

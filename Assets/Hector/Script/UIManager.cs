@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,8 +12,11 @@ public class UIManager : MonoBehaviour
     public GameObject dataUI;
     public GameObject gameOverPanel;
     public Animator DataUIAnim;
+    public Animator Jugador1UIAnim;
     public ListasDonaciones lista;
     [SerializeField] private TMP_Text textoTiempo;
+    public List<CanvasGroup> grupo;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,6 +36,10 @@ public class UIManager : MonoBehaviour
 
     // Update is called once per frame
 
+    public void CambiarA2()
+    {
+        Jugador1UIAnim.Play("1_A_2");
+    }
     public void ActualizarHoja( bool mostrar = true)
     {
         

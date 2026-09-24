@@ -18,13 +18,16 @@ public class PlayerInteraction : MonoBehaviour
     HashSet<GameObject> donacionColisionada = new HashSet<GameObject>();
     public List<GameObject> donacionLista = new List<GameObject>();
 
-    [SerializeField] private InputActionReference interactAction;
-    [SerializeField] private InputActionReference arrojarAction;
-
-    [SerializeField] private InputActionReference proximoObjetoAction;
-    [SerializeField] private InputActionReference anteriorObjetoAction;
+    [Header("Lanzamiento")]
     [SerializeField] private float fuerzaLanzamiento = 15f;
+    private bool isGamepad = false;
     private int cambioSelector = 0;
+
+    private InputAction interactAction;
+    private InputAction throwAction;
+    private InputAction aimAction;
+    private InputAction nextObjectAction;
+    private InputAction previousObjectAction;
 
     private GameObject ObtenerObjetoMasCercano()
     {
@@ -47,26 +50,24 @@ public class PlayerInteraction : MonoBehaviour
         return objetoMasCercano;
     }
 
-    private void OnEnable()
+    public void SetGamepad(bool value)
     {
-        if (interactAction != null) interactAction.action.Enable();
-        if (arrojarAction != null) arrojarAction.action.Enable();
-        if (proximoObjetoAction != null) proximoObjetoAction.action.Enable();
-        if (anteriorObjetoAction != null) anteriorObjetoAction.action.Enable();
+        isGamepad = value;
     }
 
-    private void OnDisable()
+    public void SetInputActions(InputAction interact, InputAction throwAct, InputAction aim, InputAction nextObj, InputAction prevObj)
     {
-        if (interactAction != null) interactAction.action.Disable();
-        if (arrojarAction != null) arrojarAction.action.Disable();
-        if (proximoObjetoAction != null) proximoObjetoAction.action.Disable();
-        if (anteriorObjetoAction != null) anteriorObjetoAction.action.Disable();
+        interactAction = interact;
+        throwAction = throwAct;
+        aimAction = aim;
+        nextObjectAction = nextObj;
+        previousObjectAction = prevObj;
     }
 
     void Update()
     {
         // --- AGARRAR OBJETO ---
-        if (interactAction != null && interactAction.action.WasPressedThisFrame())
+        if (interactAction != null && interactAction.WasPressedThisFrame())
         {
 
             if (objetoTomar != null)
@@ -89,7 +90,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if(!caja.open)
                 {
-                MusicMixed.index.Abrir();
+                //    MusicMixed.index.Abrir();
                    caja.AbrirCaja();
                 }
                 
@@ -103,7 +104,7 @@ public class PlayerInteraction : MonoBehaviour
                     if(cajaDonacionEnvio.tipo == tipoDonacionPermitida)
                     {
                         GameManager.instance.AddDonacion(objetoTomado);
-                        MusicMixed.index.Premio();
+                        // MusicMixed.index.Premio();
                         objetoTomado = null;
                         UIManager.instance.MostrarDataUI(false);
                     }
@@ -117,7 +118,7 @@ public class PlayerInteraction : MonoBehaviour
             if(eliminar && objetoTomado != null)
             {
                 Destroy(objetoTomado);
-                MusicMixed.index.Depositar();
+                // MusicMixed.index.Depositar();
                 UIManager.instance.MostrarDataUI(false);
                 objetoTomado = null;
             }
@@ -125,37 +126,46 @@ public class PlayerInteraction : MonoBehaviour
             if(puedeGuardar & objetoTomado != null)
             {
                 guardadoObjeto.GuardarEnCaja(objetoTomado);
-                MusicMixed.index.Depositar();
+                // MusicMixed.index.Depositar();
                 objetoTomado.SetActive(false);
                 objetoTomado = null;
             }
             else if(puedeGuardar & objetoTomado == null & guardadoObjeto !=null)
             {
-                MusicMixed.index.Abrir();
+                // MusicMixed.index.Abrir();
                 guardadoObjeto.SpawnearObjetosEnMesa();
             }
         }
 
-        // --- ARROJAR OBJETO HACIA EL MOUSE ---
-        if (arrojarAction != null && arrojarAction.action.WasPressedThisFrame())
+        // --- ARROJAR OBJETO ---
+        if (throwAction != null && throwAction.WasPressedThisFrame())
         {
-            // Verificamos que tengamos un objeto tomado y que sea nuestro hijo
             if (objetoTomado != null && objetoTomado.transform.parent == transform)
             {
-                // 1. Obtener la posición del mouse en la pantalla con el nuevo Input System
-                Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
+                Vector2 direccionLanzamiento = Vector2.zero;
 
-                // 2. Convertir la posición de la pantalla a coordenadas del mundo 2D
-                Vector3 mouseWorldPosition3D = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-                Vector2 mouseWorldPosition = new Vector2(mouseWorldPosition3D.x, mouseWorldPosition3D.y);
+                if (isGamepad)
+                {
+                    // Vector2 aimInput = aimAction != null ? aimAction.ReadValue<Vector2>() : Vector2.zero;
+                    // if (aimInput.sqrMagnitude > 0.01f)
+                    // {
+                    //     direccionLanzamiento = aimInput.normalized;
+                    // }
+                    // else
+                    // {
+                    //     direccionLanzamiento = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+                    // }
+                }
+                else
+                {
+                    Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
+                    Vector3 mouseWorldPosition3D = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+                    Vector2 mouseWorldPosition = new Vector2(mouseWorldPosition3D.x, mouseWorldPosition3D.y);
+                    direccionLanzamiento = (mouseWorldPosition - (Vector2)transform.position).normalized;
+                }
 
-                // 3. Calcular la dirección normalizada desde el jugador hacia el mouse
-                Vector2 direccionLanzamiento = (mouseWorldPosition - (Vector2)transform.position).normalized;
-
-                // 4. Desvincular el objeto del jugador
                 objetoTomado.transform.SetParent(null);
 
-                // 5. Aplicar la fuerza
                 if (objetoTomado.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
                 {
                     rb.bodyType = RigidbodyType2D.Dynamic;
@@ -163,12 +173,11 @@ public class PlayerInteraction : MonoBehaviour
                     rb.AddForce(direccionLanzamiento * fuerzaLanzamiento, ForceMode2D.Impulse);
                 }
 
-                // 6. Soltar la referencia
                 objetoTomado = null;
             }
         }
 
-        if(proximoObjetoAction.action.WasPressedThisFrame())
+        if(nextObjectAction != null && nextObjectAction.WasPressedThisFrame())
         {
             cambioSelector++;
             cambioSelector = cambioSelector > donacionLista.Count-1 ? 0 : cambioSelector;
@@ -181,7 +190,7 @@ public class PlayerInteraction : MonoBehaviour
 
         }
 
-        if(anteriorObjetoAction.action.WasPressedThisFrame())
+        if(previousObjectAction != null && previousObjectAction.WasPressedThisFrame())
         {
            
             cambioSelector--;
@@ -206,7 +215,6 @@ public class PlayerInteraction : MonoBehaviour
                     donacionLista.Add(other.gameObject);
                 }
                 
-                // Desactivar todos los selectores primero
                 foreach (GameObject obj in donacionLista)
                 {
                     if (obj != null && obj.GetComponent<DonacionSelector>() != null)
@@ -215,7 +223,6 @@ public class PlayerInteraction : MonoBehaviour
                     }
                 }
                 
-                // Activar solo el más cercano
                 objetoTomar = ObtenerObjetoMasCercano();
                 if (objetoTomar != null && objetoTomar.GetComponent<DonacionSelector>() != null)
                 {
@@ -254,16 +261,13 @@ public class PlayerInteraction : MonoBehaviour
         {
             GameObject nuevoMasCercano = ObtenerObjetoMasCercano();
             
-            // Solo actualizar si el objeto más cercano cambió
             if (nuevoMasCercano != objetoTomar)
             {
-                // Desactivar selector del objeto anterior
                 if (objetoTomar != null && objetoTomar.GetComponent<DonacionSelector>() != null)
                 {
                     objetoTomar.GetComponent<DonacionSelector>().Apagar();
                 }
                 
-                // Actualizar y activar nuevo objeto más cercano
                 objetoTomar = nuevoMasCercano;
                 
                 if (objetoTomar != null && objetoTomar.GetComponent<DonacionSelector>() != null)

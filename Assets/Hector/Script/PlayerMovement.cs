@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -11,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public int movimientoY;
 
     [Header("Opciones de Orientación")]
-    [Tooltip("Marca TRUE si quieres que el sprite se voltee horizontalmente (Flip X). FALSE si prefieres rotar la escala.")]
+    [Tooltip("Marca TRUE si quieres que el sprite se volatee horizontalmente (Flip X). FALSE si prefieres rotar la escala.")]
     [SerializeField] private bool useSpriteRendererFlip = true;
 
     public Rigidbody2D rb;
@@ -19,35 +20,41 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Animator anim;
 
+    private InputAction moveAction;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-        // Desactivamos la gravedad para movimiento libre en 2D
         rb.gravityScale = 0f;
+    }
+
+    public void SetMoveAction(InputAction action)
+    {
+        moveAction = action;
     }
 
     private void Update()
     {
-        // 1. Obtener entradas enteras (-1, 0, 1) para cada eje
-        movimientoX = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
-        movimientoY = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
+        Vector2 input = Vector2.zero;
+        if (moveAction != null)
+        {
+            input = moveAction.ReadValue<Vector2>();
+        }
 
-        // 2. Crear el vector de movimiento y normalizarlo
+        movimientoX = Mathf.RoundToInt(input.x);
+        movimientoY = Mathf.RoundToInt(input.y);
+
         movementInput = new Vector2(movimientoX, movimientoY).normalized;
 
-        // 3. ACTUALIZAR EL ANIMATOR
         UpdateAnimator();
-
-        // 4. Controlar la orientación del Sprite (Mirar izquierda / derecha)
         HandleSpriteFacing(movimientoX);
     }
 
     private void FixedUpdate()
     {
-        // Aplicamos el movimiento en el Rigidbody2D
         rb.linearVelocity = movementInput * moveSpeed;
     }
 
@@ -55,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (anim == null) return;
 
-        // Enviamos los valores enteros al Animator
         anim.SetInteger("MovimientoX", movimientoX);
         anim.SetInteger("MovimientoY", movimientoY);
     }
@@ -66,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (useSpriteRendererFlip && spriteRenderer != null)
         {
-            
             spriteRenderer.flipX = inputX < 0;
         }
         else

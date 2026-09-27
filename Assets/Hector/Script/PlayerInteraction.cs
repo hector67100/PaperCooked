@@ -29,6 +29,8 @@ public class PlayerInteraction : MonoBehaviour
     private InputAction nextObjectAction;
     private InputAction previousObjectAction;
 
+    private int playerIndex;
+
     private GameObject ObtenerObjetoMasCercano()
     {
         GameObject objetoMasCercano = null;
@@ -53,6 +55,7 @@ public class PlayerInteraction : MonoBehaviour
     public void SetGamepad(bool value)
     {
         isGamepad = value;
+        playerIndex = value ? 1 : 0;
     }
 
     public void SetInputActions(InputAction interact, InputAction throwAct, InputAction aim, InputAction nextObj, InputAction prevObj)
@@ -74,7 +77,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 objetoTomar.transform.SetParent(Posicion_donacion.transform);
                 objetoTomar.transform.localPosition = Vector3.zero;
-                UIManager.instance.MostrarDataUI(true, objetoTomar.GetComponentInChildren<SpriteRenderer>().sprite, objetoTomar.GetComponent<Donacion>().rasgos.nombreRasgo);
+                UIManager.instance.MostrarDataUI(true, objetoTomar.GetComponentInChildren<SpriteRenderer>().sprite, objetoTomar.GetComponent<Donacion>().rasgos.nombreRasgo, playerIndex);
 
                 if (objetoTomar.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
                 {
@@ -106,7 +109,7 @@ public class PlayerInteraction : MonoBehaviour
                         GameManager.instance.AddDonacion(objetoTomado);
                         MusicMixed.index.Premio();
                         objetoTomado = null;
-                        UIManager.instance.MostrarDataUI(false);
+                        UIManager.instance.MostrarDataUI(false, playerIndex: playerIndex);
                     }
                     else
                     {
@@ -119,7 +122,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 Destroy(objetoTomado);
                 MusicMixed.index.Depositar();
-                UIManager.instance.MostrarDataUI(false);
+                UIManager.instance.MostrarDataUI(false, playerIndex: playerIndex);
                 objetoTomado = null;
             }
 

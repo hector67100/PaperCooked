@@ -10,8 +10,10 @@ public class UIManager : MonoBehaviour
     public Transform[] uiHojaHijos;
     public Animator anim;
     public GameObject dataUI;
+    public GameObject dataUI2;
     public GameObject gameOverPanel;
     public Animator DataUIAnim;
+    public Animator DataUIAnim2;
     public Animator Jugador1UIAnim;
     public ListasDonaciones lista;
     [SerializeField] private TMP_Text textoTiempo;
@@ -40,6 +42,7 @@ public class UIManager : MonoBehaviour
     {
         Jugador1UIAnim.Play("1_A_2");
     }
+    
     public void ActualizarHoja( bool mostrar = true)
     {
         
@@ -83,18 +86,21 @@ public class UIManager : MonoBehaviour
         ActualizarHoja();
     }
 
-    public void MostrarDataUI(bool mostrar = false, Sprite sprite = null, string texto = "")
+    public void MostrarDataUI(bool mostrar = false, Sprite sprite = null, string texto = "", int playerIndex = 0)
     {
-        if(mostrar)
-        {
-            dataUI.GetComponentInChildren<UnityEngine.UI.Image>().sprite = sprite;
-            dataUI.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = texto;
+        GameObject ui = playerIndex == 0 ? dataUI : dataUI2;
+        Animator animData = playerIndex == 0 ? DataUIAnim : DataUIAnim2;
 
-            DataUIAnim.Play("INDatoUI");
+        if (mostrar)
+        {
+            ui.GetComponentInChildren<UnityEngine.UI.Image>().sprite = sprite;
+            ui.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = texto;
+
+            animData.Play("INDatoUI");
         }
         else
         {
-            DataUIAnim.Play("OUTDatoUI");
+            animData.Play("OUTDatoUI");
         }
     }
 

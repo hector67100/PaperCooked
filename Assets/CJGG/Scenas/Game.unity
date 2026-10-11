@@ -1905,7 +1905,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 425505097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1072186784}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CargarEscena
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Interfaz
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &425505097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31661,6 +31673,7 @@ GameObject:
   - component: {fileID: 1041336004}
   - component: {fileID: 1041336008}
   - component: {fileID: 1041336009}
+  - component: {fileID: 1041336010}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -31791,6 +31804,7 @@ MonoBehaviour:
   - {fileID: 799753238}
   - {fileID: 135111254}
   ListaAConsiderar: {fileID: 1158890120}
+  FinAnim: {fileID: 1041336010}
 --- !u!225 &1041336009
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -31803,6 +31817,28 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &1041336010
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041336003}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c4e5df0e1599f34497c7ae81acc2272, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1072186783
 GameObject:
   m_ObjectHideFlags: 0
@@ -31859,8 +31895,10 @@ MonoBehaviour:
   listasDonacionesTerminadas: []
   mesa: {fileID: 865656383}
   donacionesHechas: 0
+  ordenesCompletadas: 0
   juegoTerminado: 0
   NumeroDeListas: 5
+  Tiempo: 240
   rasgos:
   - donacionTipo: 0
     rasgos:
@@ -31902,6 +31940,8 @@ MonoBehaviour:
   CajaAUsar: 0
   NumeroItems: 0
   NumeroItemsInvocado: 0
+  cantidadDonacionesMaximas: 2
+  cantidadObjetosDonacionesMaximas: 3
   puntaje: 0
   rachaActual: 0
   mejorRacha: 0
@@ -34139,7 +34179,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1599796060}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1072186784}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CargarEscena
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Game1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1599796060
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text textoCalificacion;
     public List<CanvasGroup> grupo;
     public GameObject ListaAConsiderar;
+    public Animator FinAnim;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -134,7 +135,7 @@ public class UIManager : MonoBehaviour
 
         if (gameOverPanel != null)
         {
-            gameOverPanel.SetActive(true);
+           FinAnim.Play("FinEnter");
         }
     }
 

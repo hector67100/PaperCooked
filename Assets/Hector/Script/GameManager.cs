@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
+using UnityEngine.SceneManagement; 
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     public int ordenesCompletadas = 0;
     public bool juegoTerminado = false;
     public int NumeroDeListas = 4;
-    private float Tiempo = 240;
+    public float Tiempo = 240;
     public List<RasgoAsignador> rasgos = new List<RasgoAsignador>();
     public List<int> objetos = new List<int> {{0},{0},{0},{0}};
     public List<GameObject> donaciones = new List<GameObject>();
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
     public int CajaAUsar = 0;
     public int NumeroItems = 0;
     public int NumeroItemsInvocado = 0;
+    public int cantidadDonacionesMaximas = 2;
+    public int cantidadObjetosDonacionesMaximas = 3;
 
     [Header("Puntaje")]
     public int puntaje = 0;
@@ -38,6 +41,14 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+        }
+
+        int numJugadores = PlayerPrefs.GetInt("NPlayer", 1);
+
+        if(numJugadores > 1)
+        {
+            NumeroDeListas += 1;
+            Tiempo -= 20;
         }
 
         GenerarListas();
@@ -230,7 +241,7 @@ public class GameManager : MonoBehaviour
         int cantidadDonacionesMaximo = 0;
         for(int i = 0; i<NumeroDeListas; i++)
         {
-            int CantidadDeDonacions = Random.Range(1, 2);
+            int CantidadDeDonacions = Random.Range(1, cantidadDonacionesMaximas);
             ListasDonaciones donacion = new ListasDonaciones();
 
             for(int j=0; j< CantidadDeDonacions; j++)
@@ -245,7 +256,7 @@ public class GameManager : MonoBehaviour
                 }while(donacion.TipoEnLista(tipo));
 
                 nueva.donacionTipo = tipo;
-                nueva.cantidad =  Random.Range(1, 3);
+                nueva.cantidad =  Random.Range(1, cantidadObjetosDonacionesMaximas);
                 objetos[tipoNum] += nueva.cantidad;
                 NumeroItems++;
                 cantidadDonacionesMaximo += nueva.cantidad;
@@ -394,6 +405,11 @@ public class GameManager : MonoBehaviour
             lista[k] = lista[n];
             lista[n] = valor;
         }
+    }
+
+    public void CargarEscena(string escena)
+    {
+        SceneManager.LoadScene(escena);
     }
     
 }

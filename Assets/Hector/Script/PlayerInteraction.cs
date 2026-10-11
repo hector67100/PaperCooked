@@ -106,13 +106,32 @@ public class PlayerInteraction : MonoBehaviour
 
                     if(cajaDonacionEnvio.tipo == tipoDonacionPermitida)
                     {
+                        int listaAntes = GameManager.instance.donacionesHechas;
                         GameManager.instance.AddDonacion(objetoTomado);
+
+                        if(cajaDonacionEnvio.rasgos != null && cajaDonacionEnvio.rasgos.negativo)
+                        {
+                            GameManager.instance.RegistrarDonacionIncorrecta();
+                            
+                            UIManager.instance.ResaltarRasgo(cajaDonacionEnvio.rasgos.nombreRasgo);
+                        }
+                        else
+                        {
+                            GameManager.instance.RegistrarDonacionCorrecta();
+                        }
+
                         MusicMixed.index.Premio();
                         objetoTomado = null;
                         UIManager.instance.MostrarDataUI(false, playerIndex: playerIndex);
+
+                        if (GameManager.instance.donacionesHechas == listaAntes)
+                        {
+                            GameManager.instance.VerificarListaActual();
+                        }
                     }
                     else
                     {
+                        GameManager.instance.RegistrarDonacionIncorrecta();
                         Debug.Log("Tipo de donación no permitido.");
                     }
                 }
@@ -124,6 +143,7 @@ public class PlayerInteraction : MonoBehaviour
                 MusicMixed.index.Depositar();
                 UIManager.instance.MostrarDataUI(false, playerIndex: playerIndex);
                 objetoTomado = null;
+                GameManager.instance.VerificarListaActual();
             }
 
             if(puedeGuardar & objetoTomado != null)

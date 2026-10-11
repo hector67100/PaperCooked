@@ -17,7 +17,10 @@ public class UIManager : MonoBehaviour
     public Animator Jugador1UIAnim;
     public ListasDonaciones lista;
     [SerializeField] private TMP_Text textoTiempo;
+    [SerializeField] private TMP_Text textoPuntaje;
+    [SerializeField] private TMP_Text textoCalificacion;
     public List<CanvasGroup> grupo;
+    public GameObject ListaAConsiderar;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -117,11 +120,43 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void MostrarGameOver()
+    public void MostrarGameOver(string puntaje = "", string calificacion = "")
     {
+        if (textoPuntaje != null && puntaje != "")
+        {
+            textoPuntaje.text = puntaje;
+        }
+
+        if (textoCalificacion != null && calificacion != "")
+        {
+            textoCalificacion.text = calificacion;
+        }
+
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
+        }
+    }
+
+    public void ResaltarRasgo(string nombreRasgo)
+    {
+        if (ListaAConsiderar == null) return;
+
+        foreach (Transform child in ListaAConsiderar.transform)
+        {
+            if (child.gameObject.name.Trim().Equals(nombreRasgo.Trim(), System.StringComparison.OrdinalIgnoreCase))
+            {
+                TMP_Text texto = child.GetComponentInChildren<TMP_Text>();
+                if (texto != null)
+                {
+                    texto.color = Color.red;
+                }
+                else
+                {
+                    Debug.LogWarning("ResaltarRasgo: No se encontró TMP_Text en " + child.gameObject.name);
+                }
+                break;
+            }
         }
     }
 }

@@ -22,6 +22,16 @@ public class GameManager : MonoBehaviour
     public int NumeroItems = 0;
     public int NumeroItemsInvocado = 0;
 
+    [Header("Puntaje")]
+    public int puntaje = 0;
+    public int rachaActual = 0;
+    public int mejorRacha = 0;
+    [SerializeField] private int puntosPorDonacion = 100;
+    [SerializeField] private int bonusPorRacha = 50;
+
+    [Header("Deadend")]
+    [SerializeField] private CajaGuardadoObjetos cajaGuardado;
+
     void Start()
     {
         if (instance == null)
@@ -35,6 +45,9 @@ public class GameManager : MonoBehaviour
         UIManager.instance.ActualizarHoja(false);
         GenerarCajas();
         juegoTerminado = false;
+        puntaje = 0;
+        rachaActual = 0;
+        mejorRacha = 0;
     }
 
     void Update()
@@ -49,7 +62,7 @@ public class GameManager : MonoBehaviour
             {
                 Tiempo = 0;
                 juegoTerminado = true;
-                UIManager.instance.MostrarGameOver();
+                UIManager.instance.MostrarGameOver(puntaje.ToString(), CalcularCalificacion());
             }
             
             UIManager.instance.ActualizarTextoUI(Tiempo);   
@@ -67,27 +80,145 @@ public class GameManager : MonoBehaviour
         mesa.GetComponent<ResetChildrenPosition>().OrganizarHijos();
     }
 
+    public void VerificarListaActual()
+    {
+        if (juegoTerminado) return;
+
+        if (HaySuficientesObjetos()) return;
+
+        // La lista actual ya no se puede cumplir, buscar la siguiente
+        Debug.Log("Lista actual (" + donacionesHechas + ") imposible, buscando siguiente...");
+        CambiarDonacion();
+    }
+
     public void CambiarDonacion()
     {
         donacionesHechas++;
-        
-        if(donacionesHechas < listasDonaciones.Length)
+
+        while (donacionesHechas < listasDonaciones.Length)
         {
             listasDonacionActiva = listasDonaciones[donacionesHechas];
-            UIManager.instance.lista =listasDonaciones[donacionesHechas];
-            UIManager.instance.SacarHoja();
-            
+
+            if (HaySuficientesObjetos())
+            {
+                UIManager.instance.lista = listasDonacionActiva;
+                UIManager.instance.SacarHoja();
+                return;
+            }
+
+            donacionesHechas++;
+        }
+
+        // No quedan listas cumplibles
+        Debug.Log("DEADEND: No se encontró lista cumplible. CajaAUsar=" + CajaAUsar + " TotalCajas=" + (CajasDonaciones != null ? CajasDonaciones.Length : 0));
+        juegoTerminado = true;
+        UIManager.instance.MostrarGameOver(puntaje.ToString(), CalcularCalificacion());
+    }
+
+    public bool HaySuficientesObjetos()
+    {
+        foreach (ListaCantidadDonaciones requisito in listasDonacionActiva.listaCantidadDonaciones)
+        {
+            int yaDonados = listasDonacionActiva.donaciones.Count(d => d.tipo == requisito.donacionTipo);
+            int faltan = requisito.cantidad - yaDonados;
+            if (faltan <= 0) continue;
+
+            int disponibles = ContarDisponibles(requisito.donacionTipo);
+
+            Debug.Log("DEADEND check: tipo=" + requisito.donacionTipo + " faltan=" + faltan + " disponibles=" + disponibles);
+
+            if (disponibles < faltan)
+                return false;
+        }
+
+        return true;
+    }
+
+    private int ContarDisponibles(TipoDonacion tipo)
+    {
+        int total = 0;
+
+        // Cajas pendientes por abrir
+        if (CajasDonaciones != null)
+        {
+            for (int i = CajaAUsar; i < CajasDonaciones.Length; i++)
+            {
+                if (CajasDonaciones[i] == null) continue;
+                total += CajasDonaciones[i].Count(obj => obj != null && obj.GetComponent<Donacion>().tipo == tipo);
+            }
+        }
+
+        // Objetos guardados (dentro de la caja)
+        if (cajaGuardado != null)
+        {
+            total += cajaGuardado.objetosAGuardar.Count(obj => obj != null && obj.GetComponent<Donacion>().tipo == tipo);
+
+            // Objetos en la mesa del guardado (ya sacados de la caja)
+            if (cajaGuardado.Mesa != null)
+            {
+                foreach (Transform spawn in cajaGuardado.Mesa.transform)
+                {
+                    if (spawn.tag == "Guardar" || spawn.tag == "Mantel") continue;
+                    foreach (Transform item in spawn)
+                    {
+                        if (!item.gameObject.activeSelf) continue;
+                        Donacion d = item.GetComponent<Donacion>();
+                        if (d != null && d.tipo == tipo) total++;
+                    }
+                }
+            }
+        }
+
+        // Objetos en la mesa (spawns activos)
+        if (mesa != null)
+        {
+            int mesaCount = 0;
+            foreach (Transform child in mesa.transform)
+            {
+                if (child.tag == "Caja" || child.tag == "Mantel") continue;
+                foreach (Transform item in child)
+                {
+                    if (!item.gameObject.activeSelf) continue;
+                    Donacion d = item.GetComponent<Donacion>();
+                    if (d != null && d.tipo == tipo) { total++; mesaCount++; }
+                }
+            }
+            Debug.Log("ContarDisponibles mesa=" + mesaCount + " tipo=" + tipo + " mesaName=" + mesa.name);
         }
         else
         {
-            juegoTerminado = true;
-            UIManager.instance.MostrarGameOver();
+            Debug.Log("ContarDisponibles: mesa es NULL");
         }
+
+        return total;
     }
 
     public void AddDonacion(GameObject objeto)
     {
         listasDonacionActiva.addDonacion(objeto);
+    }
+
+    public void RegistrarDonacionCorrecta()
+    {
+        int bonus = rachaActual * bonusPorRacha;
+        puntaje += puntosPorDonacion + bonus;
+        rachaActual++;
+        if (rachaActual > mejorRacha) mejorRacha = rachaActual;
+    }
+
+    public void RegistrarDonacionIncorrecta()
+    {
+        rachaActual = 0;
+    }
+
+    public string CalcularCalificacion()
+    {
+        float ratio = (float)donacionesHechas / NumeroDeListas;
+        if (ratio >= 1f) return "S";
+        if (ratio >= 0.75f) return "A";
+        if (ratio >= 0.5f) return "B";
+        if (ratio >= 0.25f) return "C";
+        return "D";
     }
 
 

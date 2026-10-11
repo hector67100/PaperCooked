@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movementInput;
     public SpriteRenderer spriteRenderer;
     public Animator anim;
+    public GameObject mano;
+    public Vector3[] posicionMano;
 
     private InputAction moveAction;
 
@@ -29,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
 
         rb.gravityScale = 0f;
+
+        if (mano != null && mano.transform.parent != transform)
+        {
+            mano.transform.SetParent(transform);
+        }
     }
 
     public void SetMoveAction(InputAction action)
@@ -51,6 +58,31 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateAnimator();
         HandleSpriteFacing(movimientoX);
+        ActualizarMano();
+    }
+
+    private void ActualizarMano()
+    {
+        if (mano == null || posicionMano == null || posicionMano.Length == 0) return;
+
+        // Derecha
+        if (movimientoX > 0)
+        {
+            if (mano.transform.localPosition != posicionMano[0])
+                mano.transform.localPosition = posicionMano[0];
+        }
+        // Izquierda
+        else if (movimientoX < 0)
+        {
+            if (mano.transform.localPosition != posicionMano[1])
+                mano.transform.localPosition = posicionMano[1];
+        }
+        // Arriba
+        else if (movimientoY > 0)
+        {
+            if (mano.transform.localPosition != posicionMano[2])
+                mano.transform.localPosition = posicionMano[2];
+        }
     }
 
     private void FixedUpdate()

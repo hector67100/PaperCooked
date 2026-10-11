@@ -63,6 +63,7 @@ public class ListasDonaciones
 
         if(this.completado)
         {
+            GameManager.instance.ordenesCompletadas++;
             GameManager.instance.CambiarDonacion();
         }
     }

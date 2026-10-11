@@ -139,6 +139,14 @@ public class PlayerInteraction : MonoBehaviour
 
             if(eliminar && objetoTomado != null)
             {
+                if(objetoTomado.TryGetComponent<Donacion>(out Donacion donacionEliminar))
+                {
+                    if(donacionEliminar.rasgos == null || !donacionEliminar.rasgos.negativo)
+                    {
+                        GameManager.instance.RegistrarDonacionIncorrecta();
+                    }
+                }
+
                 Destroy(objetoTomado);
                 MusicMixed.index.Depositar();
                 UIManager.instance.MostrarDataUI(false, playerIndex: playerIndex);

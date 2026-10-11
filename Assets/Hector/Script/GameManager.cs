@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public ListasDonaciones[] listasDonacionesTerminadas;
     public GameObject mesa;
     public int donacionesHechas = 0;
+    public int ordenesCompletadas = 0;
     public bool juegoTerminado = false;
     public int NumeroDeListas = 4;
     private float Tiempo = 240;
@@ -213,7 +214,7 @@ public class GameManager : MonoBehaviour
 
     public string CalcularCalificacion()
     {
-        float ratio = (float)donacionesHechas / NumeroDeListas;
+        float ratio = (float)ordenesCompletadas / NumeroDeListas;
         if (ratio >= 1f) return "S";
         if (ratio >= 0.75f) return "A";
         if (ratio >= 0.5f) return "B";

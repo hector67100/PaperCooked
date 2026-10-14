@@ -354,7 +354,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &92989780
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -411,7 +411,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!1 &127433384
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +710,6 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1914302003
@@ -1935,7 +1933,7 @@ GameObject:
   m_IsActive: 1
 --- !u!212 &559877009
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1992,7 +1990,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!4 &559877010
 Transform:
   m_ObjectHideFlags: 0
@@ -2389,13 +2386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ComponentVersion: 4
+  m_ComponentVersion: 3
   m_LightType: 4
   m_BlendStyleIndex: 0
-  m_Light2DProvider:
-    rid: -2
-  m_SelectionSources:
-    rid: 3160898692561502283
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
@@ -2433,23 +2426,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 3160898692561502283
-      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data:
-        m_SelectedHashCode: 4
-        m_SelectedSource:
-          rid: -2
-        m_Provider2DCache:
-          rid: 3160898714664960101
-    - rid: 3160898714664960101
-      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data:
-        m_Cache: []
 --- !u!4 &619394802
 Transform:
   m_ObjectHideFlags: 0
@@ -2796,7 +2772,7 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!212 &697138901
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2853,7 +2829,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!4 &697138902
 Transform:
   m_ObjectHideFlags: 0
@@ -3107,7 +3082,7 @@ GameObject:
   m_IsActive: 0
 --- !u!212 &795427384
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3164,7 +3139,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!4 &795427385
 Transform:
   m_ObjectHideFlags: 0
@@ -3469,7 +3443,6 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1914302003
@@ -3559,13 +3532,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ComponentVersion: 4
+  m_ComponentVersion: 3
   m_LightType: 2
   m_BlendStyleIndex: 0
-  m_Light2DProvider:
-    rid: -2
-  m_SelectionSources:
-    rid: 3160898692561502283
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
@@ -3603,34 +3572,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 3160898692561502283
-      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data:
-        m_SelectedHashCode: 2
-        m_SelectedSource:
-          rid: 9046011256567234651
-        m_Provider2DCache:
-          rid: 3160898714664960101
-    - rid: 3160898714664960101
-      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data:
-        m_Cache: []
-    - rid: 9046011256567234651
-      type: {class: Light2DSource_BuiltIn, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data:
-        m_HashCode: 4
-        m_SourceType: 2
-        m_MenuPriority: 0
-        m_MenuName:
-          m_Text: Sprite
-          m_Image: {fileID: 2800000, guid: 8839c54710da3374f994e12f39b6d65f, type: 3}
-          m_Tooltip: 
-          m_TextWithWhitespace: "Sprite\u200B"
 --- !u!4 &826253594
 Transform:
   m_ObjectHideFlags: 0
@@ -29731,85 +29672,59 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - serializedVersion: 2
-    m_RefCount: 12
+  - m_RefCount: 12
     m_Data: {fileID: 11400000, guid: a457ca7e1cf96b84fa498e98a99aca21, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 83
+  - m_RefCount: 83
     m_Data: {fileID: 11400000, guid: 9c35f447f312d974ba78d5a3fb04b00e, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 1
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: a0dceab63b28998428fa2998c8d36910, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 69
+  - m_RefCount: 69
     m_Data: {fileID: 11400000, guid: fc99059c6357c184c8497841151655bc, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 25
+  - m_RefCount: 25
     m_Data: {fileID: 11400000, guid: 3e118d5370489504fb8ed2bc725ec566, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 1
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: e77e333c2eca426458b15b7019f0137c, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 0
+  - m_RefCount: 0
     m_Data: {fileID: 11400000, guid: 335e860749f77514c93e6a8e262c5893, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 0
+  - m_RefCount: 0
     m_Data: {fileID: 11400000, guid: c5cf49acd2549db428a96fae83bef2b4, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 0
+  - m_RefCount: 0
     m_Data: {fileID: 11400000, guid: 901d217e942d8a640b4c74389335ec71, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 12
+  - m_RefCount: 12
     m_Data: {fileID: 11400000, guid: 9f2ee1650cc0c2d41aab2d6f787f25bf, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 2230
+  - m_RefCount: 2230
     m_Data: {fileID: 11400000, guid: b08452fbd006a4f4385ff1710e948ee1, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 11
+  - m_RefCount: 11
     m_Data: {fileID: 11400000, guid: e943d1a67835be041872690d3ad45ce5, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 0
+  - m_RefCount: 0
     m_Data: {fileID: 11400000, guid: 23fcd817b0186cb438d290fcd8ed1e22, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 2
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 0268c319b7876b244b06b713be5085c4, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 0
+  - m_RefCount: 0
     m_Data: {fileID: 11400000, guid: e9474119a19853743a4dc9cbcf5a4d2e, type: 2}
-  - serializedVersion: 2
-    m_RefCount: 138
+  - m_RefCount: 138
     m_Data: {fileID: 11400000, guid: 60a8657a39536894bb9a6476fd5d5d5f, type: 2}
   m_TileSpriteArray:
-  - serializedVersion: 2
-    m_RefCount: 2368
+  - m_RefCount: 2368
     m_Data: {fileID: -1317159739, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 94
+  - m_RefCount: 94
     m_Data: {fileID: 344231082, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 83
+  - m_RefCount: 83
     m_Data: {fileID: 2068199708, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 11
+  - m_RefCount: 11
     m_Data: {fileID: -1467209153, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 2
+  - m_RefCount: 2
     m_Data: {fileID: -1119585223, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 12
+  - m_RefCount: 12
     m_Data: {fileID: -578605792, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 12
+  - m_RefCount: 12
     m_Data: {fileID: -677749634, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 1
+  - m_RefCount: 1
     m_Data: {fileID: 2060092470157314122, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
-  - serializedVersion: 2
-    m_RefCount: 1
+  - m_RefCount: 1
     m_Data: {fileID: 875939974, guid: 548b6099a6a50f249b8a01287936eb64, type: 3}
   m_TileMatrixArray:
-  - serializedVersion: 2
-    m_RefCount: 2584
+  - m_RefCount: 2584
     m_Data:
       e00: 1
       e01: 0
@@ -29828,8 +29743,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - serializedVersion: 2
-    m_RefCount: 2584
+  - m_RefCount: 2584
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -30923,7 +30837,7 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!212 &958692954
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -30980,7 +30894,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!4 &958692955
 Transform:
   m_ObjectHideFlags: 0
@@ -31243,7 +31156,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &994416511
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -31300,7 +31213,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!1 &1013746881
 GameObject:
   m_ObjectHideFlags: 0
@@ -31598,10 +31510,9 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 394322787
+  m_SortingLayerID: -1914302003
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &1041336007
@@ -31975,7 +31886,7 @@ GameObject:
   m_IsActive: 1
 --- !u!212 &1145216375
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -32032,7 +31943,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!4 &1145216376
 Transform:
   m_ObjectHideFlags: 0
@@ -32409,7 +32319,7 @@ Rigidbody2D:
   m_Constraints: 0
 --- !u!212 &1245364489
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -32466,7 +32376,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!4 &1245364490
 Transform:
   m_ObjectHideFlags: 0
@@ -32607,7 +32516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -114.98001, y: -104.47}
+  m_AnchoredPosition: {x: -114.98004, y: -104.47}
   m_SizeDelta: {x: 225.96, y: 204.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1252025280
@@ -32667,7 +32576,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -117.25, y: 77.40001}
+  m_AnchoredPosition: {x: -117.25, y: 77.400024}
   m_SizeDelta: {x: 234.49, y: 114.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1285794060
@@ -33319,7 +33228,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1500272532
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -33376,7 +33285,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!1 &1518229924
 GameObject:
   m_ObjectHideFlags: 0
@@ -33536,7 +33444,7 @@ GameObject:
   m_IsActive: 1
 --- !u!212 &1542435987
 SpriteRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -33593,7 +33501,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!4 &1542435988
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,9 @@ public class Donacion : MonoBehaviour
     public bool Estado;
     public TipoDonacion tipo;
     public Sprite Imagen;
-    public DonacionRasgo rasgos = null;
+      public DonacionRasgo rasgos = null;
+    [Tooltip("Rasgos que nunca se asignarán automáticamente a este prefab")]
+    public List<string> rasgosNoPermitidos = new List<string>();
    
 }
 

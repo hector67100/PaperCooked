@@ -299,32 +299,59 @@ public class GameManager : MonoBehaviour
         return donaciontipo;
     }
 
-    public DonacionRasgo AsignarRasgo(TipoDonacion tipo, bool positivo)
+    public DonacionRasgo AsignarRasgo(TipoDonacion tipo, bool positivo, List<string> rasgosNoPermitidos = null)
     {
-        DonacionRasgo donacion;
-        RasgoAsignador rasgoAAsignar = rasgos.Find(x => x.donacionTipo == tipo );
-        List<DonacionRasgo> rasosObetenidos = positivo == true ? rasgoAAsignar.rasgos.ToList().FindAll(x =>  x.negativo == false) : rasgoAAsignar.rasgos.ToList().FindAll(x =>  x.negativo == true);
+        List<DonacionRasgo> rasosObetenidos = BuscarRasgos(tipo, positivo, rasgosNoPermitidos);
 
-        while(rasosObetenidos.Count < 1)
+        if (rasosObetenidos.Count < 1)
         {
-            rasgoAAsignar = rasgos.Find(x => x.donacionTipo == GetTipoDonacion(Random.Range(0,2)));
-            rasosObetenidos = positivo == true ? rasgoAAsignar.rasgos.ToList().FindAll(x =>  x.negativo == false) : rasgoAAsignar.rasgos.ToList().FindAll(x =>  x.negativo == true);
+            rasosObetenidos = BuscarRasgos(null, positivo, rasgosNoPermitidos);
         }
 
-        int numero;
-        
-        if(rasosObetenidos.Count > 1)
+        if (rasosObetenidos.Count < 1)
         {
-            numero = Random.Range(0,  rasosObetenidos.Count);
-        }
-        else
-        {
-            numero = 0;
+            return new DonacionRasgo { negativo = false, nombreRasgo = "" };
         }
 
-        donacion = rasosObetenidos[numero];
-        
-        return donacion;
+        return rasosObetenidos[Random.Range(0, rasosObetenidos.Count)];
+    }
+
+    private List<DonacionRasgo> BuscarRasgos(TipoDonacion? tipo, bool positivo, List<string> rasgosNoPermitidos)
+    {
+        List<DonacionRasgo> resultado = new List<DonacionRasgo>();
+
+        foreach (RasgoAsignador grupo in rasgos)
+        {
+            if (grupo == null || grupo.rasgos == null) continue;
+            if (tipo.HasValue && grupo.donacionTipo != tipo.Value) continue;
+
+            foreach (DonacionRasgo rasgo in grupo.rasgos)
+            {
+                if (rasgo == null) continue;
+                if (rasgo.negativo != !positivo) continue;
+                if (RasgoProhibido(rasgo, rasgosNoPermitidos)) continue;
+
+                resultado.Add(rasgo);
+            }
+        }
+
+        return resultado;
+    }
+
+    private bool RasgoProhibido(DonacionRasgo rasgo, List<string> rasgosNoPermitidos)
+    {
+        if (rasgosNoPermitidos == null || rasgosNoPermitidos.Count == 0) return false;
+        if (rasgo.nombreRasgo == null) return false;
+
+        foreach (string prohibido in rasgosNoPermitidos)
+        {
+            if (prohibido == null) continue;
+
+            if (string.Equals(prohibido.Trim(), rasgo.nombreRasgo.Trim(), System.StringComparison.OrdinalIgnoreCase))
+                return true;
+        }
+
+        return false;
     }
 
     void GenerarCajas()
@@ -341,7 +368,8 @@ public class GameManager : MonoBehaviour
            {
               
               objetoInvocado = Instantiate(donacionesListas[Random.Range(0,donacionesListas.Count)],new Vector3(0,0,0), Quaternion.identity);
-              objetoInvocado.GetComponent<Donacion>().rasgos = AsignarRasgo(tipoAAparecer,true);
+              Donacion donacionInvocada = objetoInvocado.GetComponent<Donacion>();
+              donacionInvocada.rasgos = AsignarRasgo(tipoAAparecer, true, donacionInvocada.rasgosNoPermitidos);
               objetoCajas.Add(objetoInvocado);
               objetoInvocado.SetActive(false);
               NumeroItemsInvocado++;
@@ -357,7 +385,11 @@ public class GameManager : MonoBehaviour
             tipoAAparecer = GetTipoDonacion(Random.Range(0,3));
             donacionesListas = donaciones.FindAll(x => x.GetComponent<Donacion>().tipo == tipoAAparecer);
             objetoInvocado = Instantiate(donacionesListas[Random.Range(0,donacionesListas.Count)],new Vector3(0,0,0), Quaternion.identity);
-            objetoInvocado.GetComponent<Donacion>().rasgos = objetoInvocado.GetComponent<Donacion>().rasgos.nombreRasgo == "" ? AsignarRasgo(tipoAAparecer,false) : objetoInvocado.GetComponent<Donacion>().rasgos;
+            Donacion donacionInvocada = objetoInvocado.GetComponent<Donacion>();
+            if (donacionInvocada.rasgos == null || donacionInvocada.rasgos.nombreRasgo == "")
+            {
+                donacionInvocada.rasgos = AsignarRasgo(tipoAAparecer, false, donacionInvocada.rasgosNoPermitidos);
+            }
             objetoCajas.Add(objetoInvocado);
             objetoInvocado.SetActive(false);
             NumeroItemsInvocado++;

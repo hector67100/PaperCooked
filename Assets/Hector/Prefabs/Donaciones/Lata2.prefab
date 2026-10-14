@@ -53,6 +53,11 @@ MonoBehaviour:
   Estado: 0
   tipo: 0
   Imagen: {fileID: 0}
+  rasgos:
+    negativo: 0
+    nombreRasgo: 
+  rasgosNoPermitidos:
+  - Fragil
 --- !u!50 &7951529756414017337
 Rigidbody2D:
   serializedVersion: 5
